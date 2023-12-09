@@ -13,7 +13,7 @@ class AllfilePolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasAnyRole(['super-admin', 'md', 'hsd', 'cos', 'engineer']);
+        return $user->hasAnyRole(['super-admin', 'md', 'hsd', 'cos', 'engineer', 'frontdesk']);
     }
 
     /**

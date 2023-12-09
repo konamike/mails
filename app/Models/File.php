@@ -8,15 +8,15 @@ use App\Models\Category;
 use App\Models\Contractor;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
-use Spatie\Permission\Traits\HasRoles;
 
 class File extends Model
 {
     use HasFactory;
-    use LogsActivity;
     use HasRoles;
+    use LogsActivity;
     protected $fillable = [
         'contractor_id',
         'file_number',
@@ -78,7 +78,33 @@ class File extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logFillable();
+            ->logOnly([
+                'contractor_id',
+                'file_number',
+                'category_id',
+                'category_name',
+                'received_by',
+                'date_received',
+                'doc_author',
+                'doc_sender',
+                'amount',
+                'description',
+                'email',
+                'phone',
+                'hand_carried',
+                'retrieved_by',
+                'date_retrieved',
+                'treated',
+                'date_treated',
+                'treated_by',
+                'user_id',
+                'notes',
+                'remarks',
+                'date_dispatched',
+            ])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs();
     }
-}
 
+
+}

@@ -11,11 +11,9 @@ use Filament\Resources\Pages\CreateRecord;
 use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use Noxo\FilamentActivityLog\Extensions\LogCreateRecord;
 
 class CreateFile extends CreateRecord
 {
-    use LogCreateRecord;
     protected static string $resource = FileResource::class;
     protected static ?string $title = 'New File';
 
@@ -54,17 +52,14 @@ class CreateFile extends CreateRecord
 
     protected function afterCreate(): void
     {
-        // Runs after the form fields are saved to the database.
-//        $delay = now()->addMinutes(10);
         $name = Auth::user()->name;
         $storedDataEmail = $this->record->email;
         $storeDataID = $this->record->id;
         $storedDataDescription = $this->record->description;
-        if (!is_null($storedDataEmail ))
-        {
-            Mail::to($storedDataEmail) ->later(now()->addMinutes(10), new DocumentReceivedMail($storedDataDescription));
-        }
+        // if (!is_null($storedDataEmail)) {
+        //     Mail::to($storedDataEmail)->send(new DocumentReceivedMail($storedDataDescription));
+        // }
 
+        Mail::to($storedDataEmail)->send(new DocumentReceivedMail($storedDataDescription));
     }
-
 }

@@ -117,7 +117,7 @@ class MemoResource extends Resource
                                 ->default(now()),
                         ])->columns(3)->visibleOn(['edit', 'view']),
                 ])->columnSpanFull()
-/*                    ->submitAction(new HtmlString(Blade::render(<<<BLADE
+                /*                    ->submitAction(new HtmlString(Blade::render(<<<BLADE
                             <x-filament::button
                                 type="submit"
                                 size="sm"
@@ -152,7 +152,7 @@ class MemoResource extends Resource
                 Tables\Columns\TextColumn::make('created_at')
                     ->date(format: 'dS M. Y h:i A')
                     ->label('Created At')
-//                    ->sortable()
+                    //                    ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
@@ -185,7 +185,7 @@ class MemoResource extends Resource
         return [
             'index' => Pages\ListMemos::route('/'),
             'create' => Pages\CreateMemo::route('/create'),
-//            'view' => Pages\ViewMemo::route('/{record}'),
+            'view' => Pages\ViewMemo::route('/{record}'),
             'edit' => Pages\EditMemo::route('/{record}/edit'),
         ];
     }

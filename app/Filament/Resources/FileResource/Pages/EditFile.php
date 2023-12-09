@@ -13,12 +13,10 @@ use Filament\Resources\Pages\EditRecord;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Filament\Notifications\Actions\Action;
-use Noxo\FilamentActivityLog\Extensions\LogEditRecord;
 use \Spatie\Permission\Traits\HasRoles;
 
 class EditFile extends EditRecord
 {
-    use LogEditRecord;
     protected static string $resource = FileResource::class;
 
     protected function getHeaderActions(): array

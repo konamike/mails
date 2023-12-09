@@ -23,6 +23,7 @@ use Filament\Forms\Components\TextInput;
 use Illuminate\Support\Str;
 use phpDocumentor\Reflection\PseudoTypes\TraitString;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use Rmsramos\Activitylog\RelationManagers\ActivitylogRelationManager;
 
 class FileResource extends Resource
 {
@@ -73,6 +74,7 @@ class FileResource extends Resource
                             Forms\Components\Select::make('contractor_id')
                                 ->label('Mail Source')
                                 ->relationship('contractor', 'name')
+                                ->native(false)
                                 ->required()
                                 ->default(1),
                             Forms\Components\TextInput::make('file_number')
@@ -80,6 +82,7 @@ class FileResource extends Resource
 
                             Forms\Components\Select::make('received_by')
                                 ->label('Received By')
+                                ->native(false)
                                 ->required()
                                 ->options(User::where('is_admin', 0)->pluck('name', 'id'))
                                 ->preload(),
@@ -185,7 +188,7 @@ class FileResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            ActivitylogRelationManager::class,
         ];
     }
 
@@ -194,7 +197,7 @@ class FileResource extends Resource
         return [
             'index' => Pages\ListFiles::route('/'),
             'create' => Pages\CreateFile::route('/create'),
-//            'view' => Pages\ViewFile::route('/{record}'),
+           'view' => Pages\ViewFile::route('/{record}'),
             'edit' => Pages\EditFile::route('/{record}/edit'),
         ];
     }

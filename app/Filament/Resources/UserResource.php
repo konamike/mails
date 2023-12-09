@@ -29,6 +29,7 @@ use Filament\Tables\Actions\RestoreBulkAction;
 use Filament\Tables\Actions\ForceDeleteBulkAction;
 use App\Filament\Resources\UserResource\Pages\EditUser;
 use App\Filament\Resources\UserResource\Pages\ListUsers;
+use Rmsramos\Activitylog\RelationManagers\ActivitylogRelationManager;
 
 
 class UserResource extends Resource
@@ -134,6 +135,7 @@ class UserResource extends Resource
     {
         return [
             RolesRelationManager::class,
+            ActivitylogRelationManager::class,
         ];
     }
 
