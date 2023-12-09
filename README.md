@@ -1,2 +1,2 @@
 # mails
-MD/CEO NDDC Mails Management System
+NDDC MD/CEO Mails Management System
