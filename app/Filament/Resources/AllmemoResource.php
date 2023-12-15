@@ -165,7 +165,7 @@ class AllmemoResource extends Resource
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('description')
-                    ->label('Memo Description/Name')
+                    ->label('Description/Name')
                     ->searchable()
                     ->wrap(),
                 Tables\Columns\IconColumn::make('treated')
@@ -180,8 +180,10 @@ class AllmemoResource extends Resource
                     ->boolean(),
                 Tables\Columns\TextColumn::make('date_dispatched')
                     ->label('Date Dispatched')
-                    ->date()
-                    ->sortable(),
+                    ->date(),
+                    Tables\Columns\TextColumn::make('sent_to')
+                    ->limit(20)
+                    ->label('Sent To'),
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Date Created')

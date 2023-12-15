@@ -137,8 +137,8 @@ class AllfileResource extends Resource
                                 Forms\Components\TextInput::make('retrieved_by')
                                     ->maxLength(255),
                                 Forms\Components\DatePicker::make('date_retrieved')
-                                ->date()
-                                ->native(false),
+                                    ->date()
+                                    ->native(false),
                             ])->columns(3),
                     ])->columnSpanFull(),
             ]);
@@ -148,12 +148,18 @@ class AllfileResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('index')
+                    ->label('S/N')
+                    ->rowIndex(isFromZero: false),
                 Tables\Columns\TextColumn::make('date_received')
                     ->date()
                     ->label('Date Received')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('description')
-                    ->label('File Description/Name')
+                    ->label('Description/Name')
+                    ->copyable()
+                    ->copyMessage('File Description copied')
+                    ->copyMessageDuration(1500)
                     ->searchable()
                     ->wrap(),
                 Tables\Columns\IconColumn::make('treated')
@@ -169,8 +175,10 @@ class AllfileResource extends Resource
                     ->boolean(),
                 Tables\Columns\TextColumn::make('date_dispatched')
                     ->date()
-                    ->label('Date Dispatched')
-                    ->sortable(),
+                    ->label('Date Dispatched'),
+                Tables\Columns\TextColumn::make('sent_to')
+                    ->limit(20)
+                    ->label('Sent To'),
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Date Created')
@@ -190,7 +198,7 @@ class AllfileResource extends Resource
                 ]),
             ])
             ->emptyStateActions([
-//                Tables\Actions\CreateAction::make(),
+                //                Tables\Actions\CreateAction::make(),
             ]);
     }
 
@@ -205,11 +213,7 @@ class AllfileResource extends Resource
     {
         return [
             'index' => Pages\ListAllfiles::route('/'),
-//            'view' => Pages\ViewAllfile::route('/{record}'),
+            //            'view' => Pages\ViewAllfile::route('/{record}'),
         ];
     }
-
-
-
-
 }

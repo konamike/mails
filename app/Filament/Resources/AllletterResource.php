@@ -154,7 +154,7 @@ class AllletterResource extends Resource
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('description')
-                    ->label('Letter Description/Name')
+                    ->label('Description/Name')
                     ->searchable()
                     ->wrap(),
 
@@ -171,8 +171,10 @@ class AllletterResource extends Resource
                     ->boolean(),
                 Tables\Columns\TextColumn::make('date_dispatched')
                     ->label('Date Dispatched')
-                    ->date()
-                    ->sortable(),
+                    ->date(),
+                    Tables\Columns\TextColumn::make('sent_to')
+                    ->limit(20)
+                    ->label('Sent To'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Date Created')
                     ->dateTime()
