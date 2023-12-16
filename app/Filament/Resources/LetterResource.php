@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\Tabs;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Facades\Blade;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 
 class LetterResource extends Resource
 {
@@ -61,6 +62,7 @@ class LetterResource extends Resource
                             Forms\Components\Select::make('contractor_id')
                                 ->label('Mail Source')
                                 ->relationship('contractor', 'name')
+                                ->native(false)
                                 ->required()
                                 ->default(1),
                             Forms\Components\Select::make('category_id')
@@ -72,6 +74,7 @@ class LetterResource extends Resource
                                 ->reactive(),
                             Forms\Components\Select::make('received_by')
                                 ->label('Received By')
+                                ->native(false)
                                 ->required()
                                 ->options( User::where('is_admin', 0)->pluck('name', 'id'))
                                 ->preload(),
@@ -168,7 +171,10 @@ class LetterResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                    ->visible(auth()->user()->hasAnyRole(['super-admin', ])),
+                    ExportBulkAction::make()
+                    ->visible(auth()->user()->hasAnyRole(['super-admin', 'admin'])),
                 ]),
             ])
             ->emptyStateActions([

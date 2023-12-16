@@ -176,8 +176,10 @@ class FileResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                    ExportBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                    ->visible(auth()->user()->hasAnyRole(['super-admin',])),
+                    ExportBulkAction::make()
+                    ->visible(auth()->user()->hasAnyRole(['super-admin', 'admin'])),
                 ]),
             ])
             ->emptyStateActions([
@@ -188,7 +190,7 @@ class FileResource extends Resource
     public static function getRelations(): array
     {
         return [
-            ActivitylogRelationManager::class,
+            // ActivitylogRelationManager::class,
         ];
     }
 

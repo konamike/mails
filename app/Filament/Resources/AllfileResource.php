@@ -15,6 +15,8 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Infolists\Infolist;
+use Spatie\Permission\Traits\HasRoles;
+use App\Models\User;
 
 class AllfileResource extends Resource
 {
@@ -148,36 +150,32 @@ class AllfileResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('index')
-                    ->label('S/N')
-                    ->rowIndex(isFromZero: false),
+                // Tables\Columns\TextColumn::make('index')
+                //     ->label('S/N')
+                //     ->rowIndex(isFromZero: false),
                 Tables\Columns\TextColumn::make('date_received')
                     ->date()
                     ->label('Date Received')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('description')
                     ->label('Description/Name')
-                    ->copyable()
-                    ->copyMessage('File Description copied')
-                    ->copyMessageDuration(1500)
                     ->searchable()
                     ->wrap(),
                 Tables\Columns\IconColumn::make('treated')
                     ->label('Treated?')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('date_treated')
-                    ->label('Date Treated')
-                    ->date()
-                    ->label('Date Received')
-                    ->sortable(),
+                    ->label('Treated Date')
+                    ->date(),
                 Tables\Columns\IconColumn::make('dispatched')
                     ->label('Dispatched?')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('date_dispatched')
                     ->date()
-                    ->label('Date Dispatched'),
+                    ->label('Dispatch Date'),
                 Tables\Columns\TextColumn::make('sent_to')
                     ->limit(20)
+                    ->default('Not Sent')
                     ->label('Sent To'),
 
                 Tables\Columns\TextColumn::make('created_at')
@@ -193,9 +191,9 @@ class AllfileResource extends Resource
                 Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                // Tables\Actions\BulkActionGroup::make([
+                //     Tables\Actions\DeleteBulkAction::make(),
+                // ]),
             ])
             ->emptyStateActions([
                 //                Tables\Actions\CreateAction::make(),
