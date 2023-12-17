@@ -64,7 +64,6 @@ class EditFile extends EditRecord
                     ->url(FiledispatchResource::getUrl('view', ['record' => $this->record]))
                     ->button(),
             ])
-            ->sendToDatabase($recipient);
-        //    ->sendToDatabase(Auth::user()->hasAnyRole(['admin', 'user', 'hsd']));
+           ->sendToDatabase(auth()->user()->hasAnyRole(['admin', 'user', 'hsd']));
     }
 }

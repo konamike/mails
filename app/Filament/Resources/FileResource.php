@@ -156,7 +156,8 @@ class FileResource extends Resource
                     ->label('Description')
                     ->wrap(),
                 Tables\Columns\TextColumn::make('date_received')
-                    ->since(),
+                ->date(),
+                    // ->since(),
                 Tables\Columns\TextColumn::make('doc_author')
                     ->label('Document Author')
                     ->searchable(),

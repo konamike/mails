@@ -11,6 +11,7 @@ use Filament\Resources\Pages\CreateRecord;
 use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use App\Models\User;
 
 class CreateFile extends CreateRecord
 {
@@ -37,11 +38,13 @@ class CreateFile extends CreateRecord
     protected static bool $canCreateAnother = false;
     protected function getCreatedNotification(): ?Notification
     {
+        $recipients = auth()->user();
         return Notification::make()
             ->success()
             ->title('File Created')
             ->body('The file was created successfully')
-            ->duration(4000);
+            ->duration(4000)
+            ->sendToDatabase($recipients);
     }
 
 
@@ -56,6 +59,21 @@ class CreateFile extends CreateRecord
         $storedDataEmail = $this->record->email;
         $storeDataID = $this->record->id;
         $storedDataDescription = $this->record->description;
+        $recipients = auth()->user();
+
+        Notification::make()
+        ->success()
+        ->title('File created')
+        ->duration(5000)
+        ->body('The File: ' . $this->record->description . ' was created by ' . $name)
+        // ->actions([
+        //     Action::make('View File')
+        //         ->url(FileResource::getUrl('view', ['record' => $this->record]))
+        //         ->button(),
+        // ])
+       ->sendToDatabase($recipients);
+
+
         // if (!is_null($storedDataEmail)) {
         //     Mail::to($storedDataEmail)->send(new DocumentReceivedMail($storedDataDescription));
         // }
