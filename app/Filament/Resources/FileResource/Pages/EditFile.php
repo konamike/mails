@@ -31,29 +31,21 @@ class EditFile extends EditRecord
     {
         return $this->getResource()::getUrl('index');
     }
-    //    protected function getSavedNotification(): ?Notification
-    //    {
-    ////        $name = \Illuminate\Support\Facades\Auth::user()->name;
-    //        $recipients = auth()->user()->hasAnyRoles(['super-admin', 'admin', 'user']);
-    //        return
-    //            Notification::make()
-    //                ->success()
-    //                ->title('Changes to a file.')
-    //                ->duration(4000)
-    //                ->body('The File: ' . $this->record->description . ' was updated by ' . $name)
-    //                ->actions([
-    //                    Action::make('View File')
-    //                        ->url(FileResource::getUrl('view', ['record' => $this->record]))
-    //                        ->button(),
-    //                ])
-    //                ->sendToDatabase($recipients);
-    //    }
+       protected function getSavedNotification(): ?Notification
+       {
 
-    public function getSavedNotification(): ?Notification
+           return
+               Notification::make()
+                   ->success()
+                   ->title('File Update.')
+                   ->duration(4000)
+                   ->body('File successfully updated!');
+       }
+
+    protected function afterSave(): void
     {
         $name = \Illuminate\Support\Facades\Auth::user()->name;
         $recipient = auth()->user();
-        return
             Notification::make()
             ->success()
             ->title('File update')
@@ -64,6 +56,7 @@ class EditFile extends EditRecord
                     ->url(FiledispatchResource::getUrl('view', ['record' => $this->record]))
                     ->button(),
             ])
-           ->sendToDatabase(auth()->user()->hasAnyRole(['admin', 'user', 'hsd']));
+            ->sendToDatabase($recipient);
+        //    ->sendToDatabase(auth()->user()->hasAnyRole(['admin', 'user', 'hsd']));
     }
 }

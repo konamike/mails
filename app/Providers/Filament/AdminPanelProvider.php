@@ -32,8 +32,8 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->profile()
-            ->breadcrumbs(false)
             ->databaseNotifications()
+            ->breadcrumbs(false)
             ->maxContentWidth('full')
             ->colors([
                 'primary' => Color::Teal,

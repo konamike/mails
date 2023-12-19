@@ -69,6 +69,7 @@ class FileResource extends Resource
                                 ->searchable()
                                 ->options(Category::where('document_type', 'FILE')->pluck('name', 'id'))
                                 ->preload()
+                                ->required()
                                 ->label('Document Category')
                                 ->reactive(),
                             Forms\Components\Select::make('contractor_id')
@@ -79,7 +80,6 @@ class FileResource extends Resource
                                 ->default(1),
                             Forms\Components\TextInput::make('file_number')
                                 ->maxLength(255),
-
                             Forms\Components\Select::make('received_by')
                                 ->label('Received By')
                                 ->native(false)
@@ -160,6 +160,7 @@ class FileResource extends Resource
                     // ->since(),
                 Tables\Columns\TextColumn::make('doc_author')
                     ->label('Document Author')
+                    ->limit(35)
                     ->searchable(),
                 Tables\Columns\IconColumn::make('treated')
                     ->boolean(),

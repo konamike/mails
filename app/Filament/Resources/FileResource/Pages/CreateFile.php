@@ -43,41 +43,56 @@ class CreateFile extends CreateRecord
             ->success()
             ->title('File Created')
             ->body('The file was created successfully')
-            ->duration(4000)
-            ->sendToDatabase($recipients);
+            ->duration(4000);
     }
 
 
     protected function getRedirectUrl(): string
     {
-        return $this->getResource()::getUrl('index');
-    }
-
-    protected function afterCreate(): void
-    {
         $name = Auth::user()->name;
+        $recipients = auth()->user();
         $storedDataEmail = $this->record->email;
         $storeDataID = $this->record->id;
         $storedDataDescription = $this->record->description;
-        $recipients = auth()->user();
-
         Notification::make()
-        ->success()
-        ->title('File created')
-        ->duration(5000)
-        ->body('The File: ' . $this->record->description . ' was created by ' . $name)
-        // ->actions([
-        //     Action::make('View File')
-        //         ->url(FileResource::getUrl('view', ['record' => $this->record]))
-        //         ->button(),
-        // ])
-       ->sendToDatabase($recipients);
+            ->success()
+            ->title('A New File: ' . $storedDataDescription . ' was created by ' . $name)
+            ->sendToDatabase($recipients);
+
+        if (!is_null($storedDataEmail)) {
+            Mail::to($storedDataEmail)->send(new DocumentReceivedMail($storedDataDescription));
+        }
 
 
-        // if (!is_null($storedDataEmail)) {
-        //     Mail::to($storedDataEmail)->send(new DocumentReceivedMail($storedDataDescription));
-        // }
 
-        Mail::to($storedDataEmail)->send(new DocumentReceivedMail($storedDataDescription));
+        return $this->getResource()::getUrl('index');
     }
+
+
+    // protected function afterCreate(): void
+    // {
+    //     $name = Auth::user()->name;
+    //     $storedDataEmail = $this->record->email;
+    //     $storeDataID = $this->record->id;
+    //     $storedDataDescription = $this->record->description;
+    //     $recipients = auth()->user();
+
+    //     Notification::make()
+    //     ->success()
+    //     ->title('File created')
+    //     ->body('The File: ' . $this->record->description . ' was created by ' . $name)
+    //     // ->actions([
+    //     //     Action::make('View File')
+    //     //         ->url(FileResource::getUrl('view', ['record' => $this->record]))
+    //     //         ->button(),
+    //     // ])
+    //    ->sendToDatabase($recipients);
+
+
+    // if (!is_null($storedDataEmail)) {
+    //     Mail::to($storedDataEmail)->send(new DocumentReceivedMail($storedDataDescription));
+    // }
+
+    // Mail::to($storedDataEmail)->send(new DocumentReceivedMail($storedDataDescription));
+    // }
 }

@@ -21,7 +21,7 @@ class CreateContractor extends CreateRecord
     {
         return Notification::make()
             ->success()
-            ->title('Category Created')
-            ->body('New Category created successfully.');
+            ->title('Contractor Created')
+            ->body('New Contractor created successfully.');
     }
 }

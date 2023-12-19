@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Models\Contractor;
 use App\Models\User;
 use Filament\Notifications\Notification;
+use Filament\Notifications\Actions\Action;
 use Illuminate\Support\Facades\Auth;
 
 class ContractorObserver
@@ -14,7 +15,16 @@ class ContractorObserver
      */
     public function created(Contractor $contractor): void
     {
-//
+        Notification::make()
+            ->warning()
+            ->title('New Contractor Created')
+            ->body('A new contractor has been created in the database')
+            ->actions([
+	            Action::make('View')
+                    ->button()
+                    ->url(route('filament.admin.resources.contractors.index')),
+            ])
+            ->sendToDatabase(\auth()->user());
     }
 
     /**
@@ -22,7 +32,16 @@ class ContractorObserver
      */
     public function updated(Contractor $contractor): void
     {
-//
+        Notification::make()
+            ->warning()
+            ->title('Contractor Updated')
+            ->body('Contractor updated successfully')
+            // ->actions([
+	        //     Action::make('View')
+            //         ->button()
+            //         ->url(route('filament.admin.resources.contractors.index')),
+            // ])
+            ->sendToDatabase(\auth()->user());
     }
 
     /**
