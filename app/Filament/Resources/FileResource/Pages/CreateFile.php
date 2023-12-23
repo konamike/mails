@@ -56,7 +56,16 @@ class CreateFile extends CreateRecord
         $storedDataDescription = $this->record->description;
         Notification::make()
             ->success()
-            ->title('A New File: ' . $storedDataDescription . ' was created by ' . $name)
+            ->title('A New File Created')
+
+        ->body('The File: ' . $this->record->description . ' was created by ' . $name)
+        // ->actions([
+        //     Action::make('View File')
+    //     //         ->url(FileResource::getUrl('view', ['record' => $this->record]))
+    //     //         ->button(),
+    //     // ])
+
+
             ->sendToDatabase($recipients);
 
         if (!is_null($storedDataEmail)) {
