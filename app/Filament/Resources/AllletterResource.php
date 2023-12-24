@@ -166,18 +166,10 @@ class AllletterResource extends Resource
                     ->label('Dispatched?')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('date_dispatched')
-<<<<<<< HEAD
                     ->label('Date Dispatched')
                     ->date(),
                     Tables\Columns\TextColumn::make('sent_to')
                     ->label('Dispatched To'),
-=======
-                    ->label('Dispatch Date')
-                    ->date(),
-                    Tables\Columns\TextColumn::make('sent_to')
-                    ->limit(20)
-                    ->label('Sent To'),
->>>>>>> 62dd1d286100220db12c1cad672b58b773394ab2
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Date Created')
                     ->dateTime()
