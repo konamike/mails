@@ -171,8 +171,9 @@ class AllletterResource extends Resource
                     ->boolean(),
                 Tables\Columns\TextColumn::make('date_dispatched')
                     ->label('Date Dispatched')
-                    ->date()
-                    ->sortable(),
+                    ->date(),
+                    Tables\Columns\TextColumn::make('sent_to')
+                    ->label('Dispatched To'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Date Created')
                     ->dateTime()

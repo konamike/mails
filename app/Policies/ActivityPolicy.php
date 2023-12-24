@@ -13,7 +13,7 @@ class ActivityPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasAnyRole(['super-admin', 'admin', 'frontdesk']);
+        return $user->hasAnyRole(['super-admin', 'admin']);
     }
 
     /**

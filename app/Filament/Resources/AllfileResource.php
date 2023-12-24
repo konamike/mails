@@ -15,6 +15,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Infolists\Infolist;
+use Illuminate\Support\Facades\Auth;
 
 class AllfileResource extends Resource
 {
@@ -137,8 +138,8 @@ class AllfileResource extends Resource
                                 Forms\Components\TextInput::make('retrieved_by')
                                     ->maxLength(255),
                                 Forms\Components\DatePicker::make('date_retrieved')
-                                ->date()
-                                ->native(false),
+                                    ->date()
+                                    ->native(false),
                             ])->columns(3),
                     ])->columnSpanFull(),
             ]);
@@ -158,20 +159,24 @@ class AllfileResource extends Resource
                     ->wrap(),
                 Tables\Columns\IconColumn::make('treated')
                     ->label('Treated?')
-                    ->boolean(),
+                    ->boolean()
+                    ->visible(auth()->user()->hasRole('engineer')),
+                Tables\Columns\IconColumn::make('treated')
+                    ->label('In-Process?')
+                    ->boolean()
+                    ->visible(!Auth::user()->hasRole('engineer')),
                 Tables\Columns\TextColumn::make('date_treated')
                     ->label('Date Treated')
                     ->date()
-                    ->label('Date Received')
-                    ->sortable(),
+                    ->hidden(Auth::user()->hasRole('frontdesk')),
                 Tables\Columns\IconColumn::make('dispatched')
                     ->label('Dispatched?')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('date_dispatched')
                     ->date()
-                    ->label('Date Dispatched')
-                    ->sortable(),
-
+                    ->label('Date Dispatched'),
+                Tables\Columns\TextColumn::make('sent_to')
+                    ->label('Dispatched To'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Date Created')
                     ->dateTime()
@@ -190,7 +195,7 @@ class AllfileResource extends Resource
                 ]),
             ])
             ->emptyStateActions([
-//                Tables\Actions\CreateAction::make(),
+                //                Tables\Actions\CreateAction::make(),
             ]);
     }
 
@@ -205,11 +210,7 @@ class AllfileResource extends Resource
     {
         return [
             'index' => Pages\ListAllfiles::route('/'),
-//            'view' => Pages\ViewAllfile::route('/{record}'),
+            //            'view' => Pages\ViewAllfile::route('/{record}'),
         ];
     }
-
-
-
-
 }

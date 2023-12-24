@@ -91,12 +91,12 @@ class AllmemoResource extends Resource
                         Tabs\Tab::make('Document Processing')
                             ->icon('heroicon-m-presentation-chart-bar')
                             ->schema([
-//                                Forms\Components\Toggle::make('treated')
-//                                    ->label('Document Processed?')
-//                                    ->offIcon('heroicon-m-no-symbol')
-//                                    ->offColor('danger')
-//                                    ->onIcon('heroicon-m-check-badge')
-//                                    ->inline(false),
+                                //                                Forms\Components\Toggle::make('treated')
+                                //                                    ->label('Document Processed?')
+                                //                                    ->offIcon('heroicon-m-no-symbol')
+                                //                                    ->offColor('danger')
+                                //                                    ->onIcon('heroicon-m-check-badge')
+                                //                                    ->inline(false),
                                 Forms\Components\DatePicker::make('date_treated')
                                     ->label('Date Processed')
                                     ->date()
@@ -111,11 +111,11 @@ class AllmemoResource extends Resource
                         Tabs\Tab::make('Document Dispatch')
                             ->icon('heroicon-m-paper-airplane')
                             ->schema([
-//                                Forms\Components\Toggle::make('dispatched')
-//                                    ->offIcon('heroicon-m-no-symbol')
-//                                    ->offColor('danger')
-//                                    ->onIcon('heroicon-m-check-badge')
-//                                    ->inline(false),
+                                //                                Forms\Components\Toggle::make('dispatched')
+                                //                                    ->offIcon('heroicon-m-no-symbol')
+                                //                                    ->offColor('danger')
+                                //                                    ->onIcon('heroicon-m-check-badge')
+                                //                                    ->inline(false),
                                 Forms\Components\DatePicker::make('date_dispatched')
                                     ->date()
                                     ->native(false)
@@ -182,7 +182,8 @@ class AllmemoResource extends Resource
                     ->label('Date Dispatched')
                     ->date()
                     ->sortable(),
-
+                Tables\Columns\TextColumn::make('sent_to')
+                    ->label('Dispatched To'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Date Created')
                     ->dateTime()
@@ -196,9 +197,9 @@ class AllmemoResource extends Resource
                 Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
-//                Tables\Actions\BulkActionGroup::make([
-//                    Tables\Actions\DeleteBulkAction::make(),
-//                ]),
+                //                Tables\Actions\BulkActionGroup::make([
+                //                    Tables\Actions\DeleteBulkAction::make(),
+                //                ]),
             ])
             ->emptyStateActions([
                 Tables\Actions\CreateAction::make(),
@@ -216,7 +217,7 @@ class AllmemoResource extends Resource
     {
         return [
             'index' => Pages\ListAllmemos::route('/'),
-//            'view' => Pages\ViewAllmemo::route('/{record}'),
+            //            'view' => Pages\ViewAllmemo::route('/{record}'),
         ];
     }
 }
