@@ -118,9 +118,7 @@ class LetterdispatchResource extends Resource
                     ->button(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+// 
             ])
             ->emptyStateActions([
 //                Tables\Actions\CreateAction::make(),

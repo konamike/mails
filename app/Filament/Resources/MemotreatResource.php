@@ -71,23 +71,18 @@ class MemotreatResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('date_received')
                     ->date()
+                    ->label('Date Received')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('description')
                     ->label('Description')
                     ->wrap()
-                    ->searchable()
-                    ->sortable(),
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('doc_author')
                     ->label('Document Author')
-                    ->wrap()
-                    ->searchable(),
+                    ->limit(40),
                 Tables\Columns\IconColumn::make('treated')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -102,9 +97,7 @@ class MemotreatResource extends Resource
                 ->button(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-//                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+//
             ])
             ->emptyStateActions([
 //                Tables\Actions\CreateAction::make(),

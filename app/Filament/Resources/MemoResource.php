@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\HtmlString;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 
 
 class MemoResource extends Resource
@@ -164,7 +165,10 @@ class MemoResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                    ->visible(auth()->user()->hasAnyRole(['super-admin'])),
+                    ExportBulkAction::make()
+                    ->visible(auth()->user()->hasAnyRole(['super-admin', 'admin'])),
                 ]),
             ])
             ->emptyStateActions([

@@ -152,28 +152,32 @@ class AllletterResource extends Resource
                     ->label('Date Received')
                     ->date()
                     ->sortable(),
-
                 Tables\Columns\TextColumn::make('description')
-                    ->label('Letter Description/Name')
+                    ->label('Description/Name')
                     ->searchable()
                     ->wrap(),
-
-
                 Tables\Columns\IconColumn::make('treated')
                     ->label('Treated?')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('date_treated')
-                    ->label('Date Treated')
-                    ->date()
-                    ->sortable(),
+                    ->label('Treated Date')
+                    ->date(),
                 Tables\Columns\IconColumn::make('dispatched')
                     ->label('Dispatched?')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('date_dispatched')
+<<<<<<< HEAD
                     ->label('Date Dispatched')
                     ->date(),
                     Tables\Columns\TextColumn::make('sent_to')
                     ->label('Dispatched To'),
+=======
+                    ->label('Dispatch Date')
+                    ->date(),
+                    Tables\Columns\TextColumn::make('sent_to')
+                    ->limit(20)
+                    ->label('Sent To'),
+>>>>>>> 62dd1d286100220db12c1cad672b58b773394ab2
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Date Created')
                     ->dateTime()

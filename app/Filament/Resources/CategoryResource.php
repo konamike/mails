@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 
 class CategoryResource extends Resource
 {
@@ -66,7 +67,10 @@ class CategoryResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                    ->visible(auth()->user()->hasAnyRole(['super-admin'])),
+                    ExportBulkAction::make()
+                    ->visible(auth()->user()->hasAnyRole(['super-admin', 'admin'])),
                 ]),
             ])
             ->emptyStateActions([

@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 
 class FiletreatResource extends Resource
 {
@@ -72,15 +73,15 @@ class FiletreatResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('date_received')
+                    ->label('Date Received')
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('description')
                     ->searchable()
                     ->wrap(),
-
                 Tables\Columns\TextColumn::make('doc_author')
-                    ->numeric()
-                    ->sortable(),
+                    ->limit(40)
+                    ->label('Document Author'),
                 Tables\Columns\IconColumn::make('treated')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
@@ -97,9 +98,7 @@ class FiletreatResource extends Resource
                 ->button(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+//
             ])
             ->emptyStateActions([
 //

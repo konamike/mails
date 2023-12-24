@@ -124,7 +124,6 @@ class AllmemoResource extends Resource
                                     ->maxLength(255),
                                 Forms\Components\TextInput::make('sent_to')
                                     ->maxLength(255),
-
                                 Forms\Components\TextInput::make('dispatch_phone')
                                     ->label('Dispatch Phone')
                                     ->maxLength(11),
@@ -165,23 +164,25 @@ class AllmemoResource extends Resource
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('description')
-                    ->label('Memo Description/Name')
+                    ->label('Description/Name')
                     ->searchable()
                     ->wrap(),
                 Tables\Columns\IconColumn::make('treated')
                     ->label('Treated?')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('date_treated')
-                    ->label('Date Treated')
-                    ->date()
-                    ->sortable(),
+                    ->label('Treated Date')
+                    ->date(),
                 Tables\Columns\IconColumn::make('dispatched')
                     ->label('Dispatched')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('date_dispatched')
-                    ->label('Date Dispatched')
-                    ->date()
-                    ->sortable(),
+                    ->label('Dispatch Date')
+                    ->date(),
+                    Tables\Columns\TextColumn::make('sent_to')
+                    ->limit(20)
+                    ->label('Sent To')
+                    ->default('Not Sent'),
                 Tables\Columns\TextColumn::make('sent_to')
                     ->label('Dispatched To'),
                 Tables\Columns\TextColumn::make('created_at')

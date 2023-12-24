@@ -12,6 +12,7 @@
         "doctrine/dbal": "^3.7",
         "dragon-code/support": "^6.11",
         "filament/filament": "3.0-stable",
+        "filament/notifications": "3.0-stable",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
         "laravel/jetstream": "^4.1",

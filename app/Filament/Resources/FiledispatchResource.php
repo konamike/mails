@@ -12,6 +12,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Models\User;
+use Illuminate\Auth\Access\Response;
 
 class FiledispatchResource extends Resource
 {
@@ -126,9 +128,7 @@ class FiledispatchResource extends Resource
                     ->button(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                
             ])
             ->emptyStateActions([
 //                Tables\Actions\CreateAction::make(),

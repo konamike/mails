@@ -5,6 +5,9 @@ namespace App\Filament\Resources\MemodispatchResource\Pages;
 use App\Filament\Resources\MemodispatchResource;
 use Filament\Actions;
 use Filament\Notifications\Notification;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\DocumentSentMail;
 use Filament\Resources\Pages\EditRecord;
 
 class EditMemodispatch extends EditRecord
@@ -26,6 +29,15 @@ class EditMemodispatch extends EditRecord
             ->title('Memo Processed')
             ->body('The memo processed for dispatch successful')
             ->duration(4000);
+    }
+
+    protected function afterSave(): void
+    {
+        // Runs after the form fields are saved to the database.
+        $name = Auth::user()->name;
+        $storedDataEmail = $this->record->dispatch_email;
+        $storedDataDescription = $this->record->description;
+        Mail::to($storedDataEmail)->send(new DocumentSentMail($storedDataDescription));
     }
 
 
