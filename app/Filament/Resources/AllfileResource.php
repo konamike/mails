@@ -15,18 +15,13 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Infolists\Infolist;
-<<<<<<< HEAD
 use Illuminate\Support\Facades\Auth;
-=======
-use Spatie\Permission\Traits\HasRoles;
-use App\Models\User;
->>>>>>> 62dd1d286100220db12c1cad672b58b773394ab2
 
 class AllfileResource extends Resource
 {
     protected static ?string $model = Allfile::class;
     protected static ?string $navigationGroup = 'All Documents';
-    protected static ?string $navigationIcon = 'heroicon-s-film';
+    protected static ?string $navigationIcon = '`he`roicon-s-film';
     protected static ?string $navigationLabel = 'Files';
     protected static ?int $navigationSort = 1;
 
@@ -154,15 +149,12 @@ class AllfileResource extends Resource
     {
         return $table
             ->columns([
-                // Tables\Columns\TextColumn::make('index')
-                //     ->label('S/N')
-                //     ->rowIndex(isFromZero: false),
                 Tables\Columns\TextColumn::make('date_received')
                     ->date()
                     ->label('Date Received')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('description')
-                    ->label('Description/Name')
+                    ->label('File Description/Name')
                     ->searchable()
                     ->wrap(),
                 Tables\Columns\IconColumn::make('treated')
@@ -174,31 +166,17 @@ class AllfileResource extends Resource
                     ->boolean()
                     ->visible(!Auth::user()->hasRole('engineer')),
                 Tables\Columns\TextColumn::make('date_treated')
-<<<<<<< HEAD
                     ->label('Date Treated')
                     ->date()
                     ->hidden(Auth::user()->hasRole('frontdesk')),
-=======
-                    ->label('Treated Date')
-                    ->date(),
->>>>>>> 62dd1d286100220db12c1cad672b58b773394ab2
                 Tables\Columns\IconColumn::make('dispatched')
                     ->label('Dispatched?')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('date_dispatched')
                     ->date()
-<<<<<<< HEAD
                     ->label('Date Dispatched'),
                 Tables\Columns\TextColumn::make('sent_to')
                     ->label('Dispatched To'),
-=======
-                    ->label('Dispatch Date'),
-                Tables\Columns\TextColumn::make('sent_to')
-                    ->limit(20)
-                    ->default('Not Sent')
-                    ->label('Sent To'),
-
->>>>>>> 62dd1d286100220db12c1cad672b58b773394ab2
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Date Created')
                     ->dateTime()
@@ -212,9 +190,9 @@ class AllfileResource extends Resource
                 Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
-                // Tables\Actions\BulkActionGroup::make([
-                //     Tables\Actions\DeleteBulkAction::make(),
-                // ]),
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
             ])
             ->emptyStateActions([
                 //                Tables\Actions\CreateAction::make(),
