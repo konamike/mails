@@ -13,6 +13,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 
 class AllletterResource extends Resource
 {
@@ -156,12 +158,20 @@ class AllletterResource extends Resource
                     ->label('Description/Name')
                     ->searchable()
                     ->wrap(),
+
                 Tables\Columns\IconColumn::make('treated')
-                    ->label('Treated?')
-                    ->boolean(),
-                Tables\Columns\TextColumn::make('date_treated')
-                    ->label('Treated Date')
-                    ->date(),
+                ->label('Treated?')
+                ->boolean()
+                ->visible(Auth::user()->hasRole('engineer')),
+            Tables\Columns\IconColumn::make('treated')
+                ->label('In-Process?')
+                ->boolean()
+                ->visible(!Auth::user()->hasRole('engineer')),
+            Tables\Columns\TextColumn::make('date_treated')
+                ->label('Date Treated')
+                // ->visible(Auth::user()->hasRole('engineer'))
+                ->date()
+                ->hidden(Auth::user()->hasRole('frontdesk')),
                 Tables\Columns\IconColumn::make('dispatched')
                     ->label('Dispatched?')
                     ->boolean(),

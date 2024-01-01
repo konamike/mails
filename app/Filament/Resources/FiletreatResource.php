@@ -19,7 +19,7 @@ class FiletreatResource extends Resource
     protected static ?string $model = Filetreat::class;
 
     protected static ?string $navigationIcon = 'heroicon-s-film';
-    protected static ?string $navigationGroup = 'Documents Under Review';
+    protected static ?string $navigationGroup = 'Documents In-Process';
     protected static ?string $navigationLabel = 'Files';
     protected static ?int $navigationSort = 1;
 

@@ -16,12 +16,13 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Infolists\Infolist;
 use Illuminate\Support\Facades\Auth;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 
 class AllfileResource extends Resource
 {
     protected static ?string $model = Allfile::class;
     protected static ?string $navigationGroup = 'All Documents';
-    protected static ?string $navigationIcon = '`he`roicon-s-film';
+    protected static ?string $navigationIcon = 'heroicon-s-film';
     protected static ?string $navigationLabel = 'Files';
     protected static ?int $navigationSort = 1;
 
@@ -164,11 +165,11 @@ class AllfileResource extends Resource
                 Tables\Columns\IconColumn::make('treated')
                     ->label('In-Process?')
                     ->boolean()
-                    ->visible(!Auth::user()->hasRole('engineer')),
+                    ->visible(! auth()->user()->hasRole('engineer')),
                 Tables\Columns\TextColumn::make('date_treated')
                     ->label('Date Treated')
                     ->date()
-                    ->hidden(Auth::user()->hasRole('frontdesk')),
+                    ->visible(auth()->user()->hasRole('engineer')),
                 Tables\Columns\IconColumn::make('dispatched')
                     ->label('Dispatched?')
                     ->boolean(),
@@ -191,8 +192,11 @@ class AllfileResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                    Tables\Actions\DeleteBulkAction::make()
+                    ->visible(auth()->user()->hasAnyRole(['super-admin'])),
+                    ExportBulkAction::make()
+                    ->visible(auth()->user()->hasAnyRole(['super-admin', 'admin'])),
+                ])->iconButton(),
             ])
             ->emptyStateActions([
                 //                Tables\Actions\CreateAction::make(),

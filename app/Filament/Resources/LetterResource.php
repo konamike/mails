@@ -60,11 +60,13 @@ class LetterResource extends Resource
                                 ->maxLength(65535)
                                 ->columnSpanFull(),
                             Forms\Components\Select::make('contractor_id')
-                                ->label('Mail Source')
-                                ->relationship('contractor', 'name')
-                                ->native(false)
-                                ->required()
-                                ->default(1),
+                            ->label('Mail Source')
+                            ->relationship('contractor', 'name')
+                            ->searchable()
+                            ->preload()
+                            ->native(false)
+                            ->required()
+                            ->default(1),
                             Forms\Components\Select::make('category_id')
                                 ->label('Category')
                                 ->searchable()
@@ -133,14 +135,15 @@ class LetterResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('date_received')
+                ->date()
+                ->sortable(),
                 Tables\Columns\TextColumn::make('description')
                     ->searchable()
                     ->wrap()
                     ->label('Letter Description')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('date_received')
-                    ->date()
-                    ->sortable(),
+
                 Tables\Columns\TextColumn::make('doc_author')
                     ->label('Document Author')
                     ->wrap()

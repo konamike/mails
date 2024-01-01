@@ -18,7 +18,8 @@ class MemotreatResource extends Resource
     protected static ?string $model = Memotreat::class;
 
     protected static ?string $navigationIcon = 'heroicon-s-chevron-double-down';
-    protected static ?string $navigationGroup = 'Documents Under Review';
+
+    protected static ?string $navigationGroup = 'Documents In-Process';
     protected static ?string $navigationLabel = 'Memos';
     protected static ?int $navigationSort = 3;
 

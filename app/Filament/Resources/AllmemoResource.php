@@ -13,6 +13,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class AllmemoResource extends Resource
 {
@@ -167,12 +168,21 @@ class AllmemoResource extends Resource
                     ->label('Description/Name')
                     ->searchable()
                     ->wrap(),
-                Tables\Columns\IconColumn::make('treated')
+
+                    Tables\Columns\IconColumn::make('treated')
                     ->label('Treated?')
-                    ->boolean(),
+                    ->boolean()
+                    ->visible(Auth::user()->hasRole('engineer')),
+                Tables\Columns\IconColumn::make('treated')
+                    ->label('In-Process?')
+                    ->boolean()
+                    ->visible(!Auth::user()->hasRole('engineer')),
                 Tables\Columns\TextColumn::make('date_treated')
-                    ->label('Treated Date')
-                    ->date(),
+                    ->label('Date Treated')
+                    // ->visible(Auth::user()->hasRole('engineer'))
+                    ->date()
+                    ->hidden(Auth::user()->hasRole('frontdesk')),
+
                 Tables\Columns\IconColumn::make('dispatched')
                     ->label('Dispatched')
                     ->boolean(),

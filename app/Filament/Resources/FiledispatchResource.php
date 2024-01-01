@@ -20,7 +20,7 @@ class FiledispatchResource extends Resource
     protected static ?string $model = Filedispatch::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-film';
-    protected static ?string $navigationGroup = 'Awaiting MD Signature';
+    protected static ?string $navigationGroup = 'Documents For Dispatch';
     protected static ?string $navigationLabel = 'Files';
     protected static ?int $navigationSort = 1;
 

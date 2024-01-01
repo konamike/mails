@@ -17,7 +17,7 @@ class LetterdispatchResource extends Resource
 {
     protected static ?string $model = Letterdispatch::class;
     protected static ?string $navigationIcon = 'heroicon-s-envelope';
-    protected static ?string $navigationGroup = 'Awaiting MD Signature';
+    protected static ?string $navigationGroup = 'Documents For Dispatch';
     protected static ?string $navigationLabel = 'Letter';
     protected static ?int $navigationSort = 2;
 

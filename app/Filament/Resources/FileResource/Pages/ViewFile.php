@@ -13,8 +13,8 @@ class ViewFile extends ViewRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\EditAction::make(),
-            Actions\ViewAction::make(),
+            // Actions\EditAction::make(),
+            // Actions\ViewAction::make(),
         ];
 
     }

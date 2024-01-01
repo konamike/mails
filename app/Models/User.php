@@ -15,6 +15,9 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Permission\Traits\HasRoles;
+use App\Models\File;
+use App\Models\Letter;
+use App\Models\Memo;
 
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasName;
@@ -87,6 +90,21 @@ class User extends Authenticatable implements FilamentUser
             ->logOnly(['name', 'email', 'is_admin',])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();
+    }
+
+        public function file(): HasMany
+    {
+        return $this->hasMany(File::class);
+    }
+
+    public function letter(): HasMany
+    {
+        return $this->hasMany(Letter::class);
+    }
+
+    public function memo(): HasMany
+    {
+        return $this->hasMany(Memo::class);
     }
 
 }

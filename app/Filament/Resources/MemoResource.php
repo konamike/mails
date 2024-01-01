@@ -63,6 +63,9 @@ class MemoResource extends Resource
                             Forms\Components\Select::make('contractor_id')
                                 ->label('Mail Source')
                                 ->relationship('contractor', 'name')
+                                ->searchable()
+                                ->preload()
+                                ->native(false)
                                 ->required()
                                 ->default(1),
                             Forms\Components\Select::make('category_id')
@@ -135,14 +138,15 @@ class MemoResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('date_received')
+                ->date()
+                ->sortable(),
                 Tables\Columns\TextColumn::make('description')
                     ->searchable()
                     ->wrap()
                     ->label('Letter Description')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('date_received')
-                    ->date()
-                    ->sortable(),
+
                 Tables\Columns\TextColumn::make('doc_author')
                     ->label('Document Author')
                     ->wrap()
@@ -166,9 +170,9 @@ class MemoResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make()
-                    ->visible(auth()->user()->hasAnyRole(['super-admin'])),
+                        ->visible(auth()->user()->hasAnyRole(['super-admin'])),
                     ExportBulkAction::make()
-                    ->visible(auth()->user()->hasAnyRole(['super-admin', 'admin'])),
+                        ->visible(auth()->user()->hasAnyRole(['super-admin', 'admin'])),
                 ]),
             ])
             ->emptyStateActions([

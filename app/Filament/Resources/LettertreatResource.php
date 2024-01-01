@@ -18,7 +18,7 @@ class LettertreatResource extends Resource
     protected static ?string $model = Lettertreat::class;
 
     protected static ?string $navigationIcon = 'heroicon-s-envelope';
-    protected static ?string $navigationGroup = 'Documents Under Review';
+    protected static ?string $navigationGroup = 'Documents In-Process';
     protected static ?string $navigationLabel = 'Letters';
     protected static ?int $navigationSort = 2;
 

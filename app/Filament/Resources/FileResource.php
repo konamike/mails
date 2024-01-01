@@ -4,12 +4,14 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\FileResource\Pages;
 use App\Filament\Resources\FileResource\RelationManagers;
+use App\Filament\Resources\FileResource\RelationManagers\ContractorsRelationManager;
 use App\Models\File;
 use App\Models\Category;
 use App\Models\Contractor;
 use App\Models\User;
 use Closure;
 use Filament\Forms;
+use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Wizard;
 use Filament\Forms\Form;
 use Filament\Forms\Set;
@@ -20,6 +22,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use phpDocumentor\Reflection\PseudoTypes\TraitString;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
@@ -54,12 +57,10 @@ class FileResource extends Resource
     {
         return $form
             ->schema([
-                Wizard::make([
-                    Wizard\Step::make('PRIMARY INFORMATION')
-                        ->description('Primary Data')
-                        ->icon('heroicon-m-academic-cap')
-                        ->schema([
-                            Forms\Components\Textarea::make('description')
+
+                Fieldset::make('PRIMARY INFORMATION')
+                ->schema([
+                    Forms\Components\Textarea::make('description')
                                 ->required()
                                 ->label('File Description')
                                 ->maxLength(65535)
@@ -75,6 +76,8 @@ class FileResource extends Resource
                             Forms\Components\Select::make('contractor_id')
                                 ->label('Mail Source')
                                 ->relationship('contractor', 'name')
+                                ->searchable()
+                                ->preload()
                                 ->native(false)
                                 ->required()
                                 ->default(1),
@@ -87,63 +90,130 @@ class FileResource extends Resource
                                 ->options(User::where('is_admin', 0)->pluck('name', 'id'))
                                 ->preload(),
                             Forms\Components\DatePicker::make('date_received')
-                                ->native(false)
+
                                 ->default(now())
                                 ->required(),
                             Forms\Components\TextInput::make('doc_author')
                                 ->label('Document Author')
                                 ->maxLength(255),
 
-                        ])->columns(3),
+                ])->columns(3),
 
-                    Wizard\Step::make('ADDITIONAL DETAILS')
-                        ->description('Additional Details ')
-                        ->icon('heroicon-m-building-office-2')
-                        ->schema([
-                            Forms\Components\TextInput::make('doc_sender')
-                                ->label('Document Sender')
-                                ->maxLength(255),
-                            Forms\Components\TextInput::make('amount')
-                                ->numeric(),
-                            Forms\Components\TextInput::make('phone')
-                                ->label('Phone Number')
-                                ->mask('999-9999-9999')
-                                ->placeholder('080-0000-0000'),
+                Fieldset::make('ADDITIONAL DETAILS')
+                ->schema([
+                    Forms\Components\TextInput::make('doc_sender')
+                    ->label('Document Sender')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('amount')
+                    ->numeric(),
+                Forms\Components\TextInput::make('phone')
+                    ->label('Phone Number')
+                    ->mask('999-9999-9999')
+                    ->placeholder('080-0000-0000'),
 //                                ->minLength(11)
 //                                ->maxLength(11),
-                            Forms\Components\TextInput::make('email')
-                                ->label('Email')
-                                ->placeholder('Pls enter email for receipt of document info'),
-                            Forms\Components\Textarea::make('remarks')
-                                ->maxLength(65535)
-                                ->columnSpanFull(),
-                        ])->columns(2),
+                Forms\Components\TextInput::make('email')
+                    ->label('Email')
+                    ->placeholder('Pls enter email for receipt of document info'),
+                Forms\Components\Textarea::make('remarks')
+                    ->maxLength(65535)
+                    ->columnSpanFull(),
 
-                    Wizard\Step::make('DOCUMENT RETRIEVAL')
-                        ->description('Retrieval Data')
-                        ->icon('heroicon-m-banknotes')
-                        ->schema([
-                            Forms\Components\TextInput::make('hand_carried')
-                                ->maxLength(255),
-                            Forms\Components\TextInput::make('retrieved_by')
-                                ->maxLength(255),
-                            Forms\Components\DatePicker::make('date_retrieved')
-                                ->native(false)
-                                ->default(now()),
-                        ])->columns(2)->visibleOn(['edit', 'view']),
-                ])->columnSpanFull(),
-                /*                    ->submitAction(new HtmlString(Blade::render(<<<BLADE
-                                            <x-filament::button
-                                                type="submit"
-                                                size="sm"
-                                            >
-                                                Submit
-                                            </x-filament::button>
-                                        BLADE
-                                    ))),*/
-//            ]);
+                ])->columns(2),
+
+                Fieldset::make('DOCUMENT RETRIEVALS')
+                ->schema([
+                    Forms\Components\TextInput::make('hand_carried')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('retrieved_by')
+                    ->maxLength(255),
+                Forms\Components\DatePicker::make('date_retrieved')
+                    ->native(false)
+                    ->default(now()),
+
+                ])->columns(2)->visibleOn(['edit', 'view']),
 
 
+//                 Wizard::make([
+//                     Wizard\Step::make('PRIMARY INFORMATION')
+//                         ->description('Primary Data')
+//                         ->icon('heroicon-m-academic-cap')
+//                         ->schema([
+//                             Forms\Components\Textarea::make('description')
+//                                 ->required()
+//                                 ->label('File Description')
+//                                 ->maxLength(65535)
+//                                 ->columnSpanFull(),
+//                             Forms\Components\Select::make('category_id')
+//                                 ->label('Category')
+//                                 ->searchable()
+//                                 ->options(Category::where('document_type', 'FILE')->pluck('name', 'id'))
+//                                 ->preload()
+//                                 ->required()
+//                                 ->label('Document Category')
+//                                 ->reactive(),
+//                             Forms\Components\Select::make('contractor_id')
+//                                 ->label('Mail Source')
+//                                 ->relationship('contractor', 'name')
+//                                 ->searchable()
+//                                 ->preload()
+//                                 ->native(false)
+//                                 ->required()
+//                                 ->default(1),
+//                             Forms\Components\TextInput::make('file_number')
+//                                 ->maxLength(255),
+//                             Forms\Components\Select::make('received_by')
+//                                 ->label('Received By')
+//                                 ->native(false)
+//                                 ->required()
+//                                 ->options(User::where('is_admin', 0)->pluck('name', 'id'))
+//                                 ->preload(),
+//                             Forms\Components\DatePicker::make('date_received')
+
+//                                 ->default(now())
+//                                 ->required(),
+//                             Forms\Components\TextInput::make('doc_author')
+//                                 ->label('Document Author')
+//                                 ->maxLength(255),
+
+//                         ])->columns(3),
+
+//                     Wizard\Step::make('ADDITIONAL DETAILS')
+//                         ->description('Additional Details ')
+//                         ->icon('heroicon-m-building-office-2')
+//                         ->schema([
+//                             Forms\Components\TextInput::make('doc_sender')
+//                                 ->label('Document Sender')
+//                                 ->maxLength(255),
+//                             Forms\Components\TextInput::make('amount')
+//                                 ->numeric(),
+//                             Forms\Components\TextInput::make('phone')
+//                                 ->label('Phone Number')
+//                                 ->mask('999-9999-9999')
+//                                 ->placeholder('080-0000-0000'),
+// //                                ->minLength(11)
+// //                                ->maxLength(11),
+//                             Forms\Components\TextInput::make('email')
+//                                 ->label('Email')
+//                                 ->placeholder('Pls enter email for receipt of document info'),
+//                             Forms\Components\Textarea::make('remarks')
+//                                 ->maxLength(65535)
+//                                 ->columnSpanFull(),
+//                         ])->columns(2),
+
+//                     Wizard\Step::make('DOCUMENT RETRIEVAL')
+//                         ->description('Retrieval Data')
+//                         ->icon('heroicon-m-banknotes')
+//                         ->schema([
+//                             Forms\Components\TextInput::make('hand_carried')
+//                                 ->maxLength(255),
+//                             Forms\Components\TextInput::make('retrieved_by')
+//                                 ->maxLength(255),
+//                             Forms\Components\DatePicker::make('date_retrieved')
+//                                 ->native(false)
+//                                 ->default(now()),
+//                         ])->columns(2)->visibleOn(['edit', 'view']),
+//                 ])->columnSpanFull()
             ]);
     }
 
@@ -151,12 +221,13 @@ class FileResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('date_received')
+                ->date(),
                 Tables\Columns\TextColumn::make('description')
                     ->searchable()
                     ->label('Description')
                     ->wrap(),
-                Tables\Columns\TextColumn::make('date_received')
-                ->date(),
+
                     // ->since(),
                 Tables\Columns\TextColumn::make('doc_author')
                     ->label('Document Author')
@@ -179,10 +250,10 @@ class FileResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make()
-                    ->visible(auth()->user()->hasAnyRole(['super-admin',])),
+                    ->visible(auth()->user()->hasAnyRole(['super-admin'])),
                     ExportBulkAction::make()
                     ->visible(auth()->user()->hasAnyRole(['super-admin', 'admin'])),
-                ]),
+                ])->iconButton(),
             ])
             ->emptyStateActions([
                 Tables\Actions\CreateAction::make(),
@@ -190,9 +261,10 @@ class FileResource extends Resource
     }
 
     public static function getRelations(): array
+
     {
         return [
-            // ActivitylogRelationManager::class,
+            // ContractorsRelationManager::class
         ];
     }
 

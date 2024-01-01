@@ -65,8 +65,8 @@ class AdminPanelProvider extends PanelProvider
                 'General Management',
                 'All Documents',
                 'Incoming Documents',
-                'Documents Under Review',
-                'Awaiting MD Signature'
+                'Documents In-Process',
+                'Documents For Dispatch'
             ])
              ->middleware([
                     EncryptCookies::class,
