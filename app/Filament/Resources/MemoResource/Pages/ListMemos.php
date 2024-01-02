@@ -18,7 +18,7 @@ class ListMemos extends ListRecords
                 ->icon('heroicon-o-chevron-double-down')
                 ->color('warning')
                 ->iconPosition('after')
-                ->label('Create Letter'),
+                ->label('Create Memo'),
         ];
     }
 

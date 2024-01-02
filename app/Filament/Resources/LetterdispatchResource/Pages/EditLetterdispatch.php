@@ -13,7 +13,7 @@ use App\Mail\DocumentSentMail;
 class EditLetterdispatch extends EditRecord
 {
     protected static string $resource = LetterdispatchResource::class;
-    protected static ?string $title = 'Memo Dispatch';
+    protected static ?string $title = 'Letter Dispatch';
     protected static bool $canCreateAnother = false;
 
     protected function mutateFormDataBeforeSave(array $data): array
@@ -49,7 +49,7 @@ class EditLetterdispatch extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\ViewAction::make(),
+            // Actions\ViewAction::make(),
 //            Actions\DeleteAction::make(),
         ];
     }

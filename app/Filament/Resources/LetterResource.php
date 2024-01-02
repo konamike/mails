@@ -10,6 +10,7 @@ use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\Wizard;
 use Filament\Forms\Form;
+use Filament\Forms\Components\Fieldset;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -30,7 +31,7 @@ class LetterResource extends Resource
 
     public static function getNavigationBadge(): ?string
     {
-//        return static::getModel()::count();
+        //        return static::getModel()::count();
         return Letter::where('treated', 'false')->count();
     }
 
@@ -49,17 +50,15 @@ class LetterResource extends Resource
     {
         return $form
             ->schema([
-                Wizard::make([
-                    Wizard\Step::make('PRIMARY INFORMATION')
-                        ->description('Primary Data')
-                        ->icon('heroicon-m-academic-cap')
-                        ->schema([
-                            Forms\Components\Textarea::make('description')
-                                ->required()
-                                ->label('File Description')
-                                ->maxLength(65535)
-                                ->columnSpanFull(),
-                            Forms\Components\Select::make('contractor_id')
+
+                Fieldset::make('PRIMARY INFORMATION')
+                    ->schema([
+                        Forms\Components\Textarea::make('description')
+                            ->required()
+                            ->label('File Description')
+                            ->maxLength(65535)
+                            ->columnSpanFull(),
+                        Forms\Components\Select::make('contractor_id')
                             ->label('Mail Source')
                             ->relationship('contractor', 'name')
                             ->searchable()
@@ -67,67 +66,57 @@ class LetterResource extends Resource
                             ->native(false)
                             ->required()
                             ->default(1),
-                            Forms\Components\Select::make('category_id')
-                                ->label('Category')
-                                ->searchable()
-                                ->options(Category::where('document_type', 'LETTER')->pluck('name', 'id'))
-                                ->preload()
-                                ->label('Document Category')
-                                ->reactive(),
-                            Forms\Components\Select::make('received_by')
-                                ->label('Received By')
-                                ->native(false)
-                                ->required()
-                                ->options( User::where('is_admin', 0)->pluck('name', 'id'))
-                                ->preload(),
-                            Forms\Components\DatePicker::make('date_received')
-                                ->native(false)
-                                ->default(now())
-                                ->required(),
-                            Forms\Components\TextInput::make('doc_author')
-                                ->label('Document Author')
-                                ->maxLength(255),
-                            Forms\Components\TextInput::make('file_number')
-                                ->maxLength(255),
-                        ])->columns(3),
+                        Forms\Components\Select::make('category_id')
+                            ->label('Category')
+                            ->searchable()
+                            ->options(Category::where('document_type', 'LETTER')->pluck('name', 'id'))
+                            ->preload()
+                            ->label('Document Category')
+                            ->reactive(),
+                        Forms\Components\Select::make('received_by')
+                            ->label('Received By')
+                            ->native(false)
+                            ->required()
+                            ->options(User::where('is_admin', 0)->pluck('name', 'id'))
+                            ->preload(),
+                        Forms\Components\DatePicker::make('date_received')
+                            ->native(false)
+                            ->default(now())
+                            ->required(),
+                        Forms\Components\TextInput::make('doc_author')
+                            ->label('Document Author')
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('file_number')
+                            ->maxLength(255),
 
-                    Wizard\Step::make('ADDITIONAL DETAILS')
-                        ->description('Additional Details ')
-                        ->icon('heroicon-m-building-office-2')
-                        ->schema([
-                            Forms\Components\TextInput::make('amount')
-                                ->numeric(),
-                            Forms\Components\TextInput::make('phone')
-                                ->label('Phone Number'),
-                            Forms\Components\TextInput::make('email')
-                                ->label('Email'),
-                            Forms\Components\Textarea::make('remarks')
-                                ->maxLength(65535)
-                                ->columnSpanFull(),
-                        ])->columns(3),
+                    ])->columns(3),
 
-                    Wizard\Step::make('DOCUMENT RETRIEVALS')
-                        ->description('Retrieval Data')
-                        ->icon('heroicon-m-banknotes')
-                        ->schema([
-                            Forms\Components\TextInput::make('hand_carried')
-                                ->maxLength(255),
-                            Forms\Components\TextInput::make('retrieved_by')
-                                ->maxLength(255),
-                            Forms\Components\DatePicker::make('date_retrieved')
-                                ->native(false)
-                                ->default(now()),
-                        ])->columns(2)->visibleOn(['edit', 'view']),
-                ])->columnSpanFull()
-/*                    ->submitAction(new HtmlString(Blade::render(<<<BLADE
-                            <x-filament::button
-                                type="submit"
-                                size="sm"
-                            >
-                                Submit
-                            </x-filament::button>
-                        BLADE
-                    ))),*/
+
+                    Fieldset::make('ADDITIONAL DETAILS')
+                    ->schema([
+                        Forms\Components\TextInput::make('amount')
+                        ->numeric(),
+                    Forms\Components\TextInput::make('phone')
+                        ->label('Phone Number'),
+                    Forms\Components\TextInput::make('email')
+                        ->label('Email'),
+                    Forms\Components\Textarea::make('remarks')
+                        ->maxLength(65535)
+                        ->columnSpanFull(),
+
+                    ])->columns(3),
+
+
+                    Fieldset::make('DOCUMENT RETRIEVAL')
+                    ->schema([
+                        Forms\Components\TextInput::make('hand_carried')
+                        ->maxLength(255),
+                    Forms\Components\TextInput::make('retrieved_by')
+                        ->maxLength(255),
+                    Forms\Components\DatePicker::make('date_retrieved')
+                        ->native(false)
+                        ->default(now()),
+                ])->columns(2)->visibleOn(['edit', 'view']),
             ]);
     }
 
@@ -136,8 +125,8 @@ class LetterResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('date_received')
-                ->date()
-                ->sortable(),
+                    ->date()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('description')
                     ->searchable()
                     ->wrap()
@@ -151,18 +140,18 @@ class LetterResource extends Resource
 
                 Tables\Columns\IconColumn::make('treated')
                     ->boolean(),
-//                Tables\Columns\TextColumn::make('date_treated')
-//                    ->date(),
-//                Tables\Columns\IconColumn::make('dispatched')
-//                    ->boolean(),
-//                Tables\Columns\TextColumn::make('date_dispatched')
-//                    ->date()
-//                    ->sortable(),
+                //                Tables\Columns\TextColumn::make('date_treated')
+                //                    ->date(),
+                //                Tables\Columns\IconColumn::make('dispatched')
+                //                    ->boolean(),
+                //                Tables\Columns\TextColumn::make('date_dispatched')
+                //                    ->date()
+                //                    ->sortable(),
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->date(format: 'dS M. Y h:i A')
-//                    ->sortable()
-                        ->label('Created At')
+                    //                    ->sortable()
+                    ->label('Created At')
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
@@ -175,9 +164,9 @@ class LetterResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make()
-                    ->visible(auth()->user()->hasAnyRole(['super-admin', ])),
+                        ->visible(auth()->user()->hasAnyRole(['super-admin',])),
                     ExportBulkAction::make()
-                    ->visible(auth()->user()->hasAnyRole(['super-admin', 'admin'])),
+                        ->visible(auth()->user()->hasAnyRole(['super-admin', 'admin'])),
                 ]),
             ])
             ->emptyStateActions([
@@ -201,5 +190,4 @@ class LetterResource extends Resource
             'edit' => Pages\EditLetter::route('/{record}/edit'),
         ];
     }
-
 }
