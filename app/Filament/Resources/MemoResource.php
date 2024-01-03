@@ -76,6 +76,7 @@ class MemoResource extends Resource
                     ->reactive(),
                 Forms\Components\Select::make('received_by')
                     ->label('Received By')
+                    ->native(false)
                     ->required()
                     ->options(User::where('is_admin', 0)->pluck('name', 'id'))
                     ->preload(),

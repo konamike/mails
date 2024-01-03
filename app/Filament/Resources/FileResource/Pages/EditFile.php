@@ -22,8 +22,8 @@ class EditFile extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\ViewAction::make(),
-            Actions\DeleteAction::make(),
+            // Actions\ViewAction::make(),
+            // Actions\DeleteAction::make(),
         ];
     }
 
@@ -44,19 +44,18 @@ class EditFile extends EditRecord
 
     protected function afterSave(): void
     {
-        $name = \Illuminate\Support\Facades\Auth::user()->name;
+        $name = Auth::user()->name;
         $recipient = auth()->user();
+        $recipients = User::where('is_admin', '=', 1)->get();
             Notification::make()
             ->success()
             ->title('File update')
-            ->duration(4000)
             ->body('The File: ' . $this->record->description . ' was updated by ' . $name)
             ->actions([
                 Action::make('View File')
-                    ->url(FiledispatchResource::getUrl('view', ['record' => $this->record]))
+                    ->url(FileResource::getUrl('view', ['record' => $this->record]))
                     ->button(),
             ])
-            ->sendToDatabase($recipient);
-        //    ->sendToDatabase(auth()->user()->hasAnyRole(['admin', 'user', 'hsd']));
+            ->sendToDatabase($recipients);
     }
 }

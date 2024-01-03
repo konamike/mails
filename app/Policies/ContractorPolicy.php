@@ -37,7 +37,7 @@ class ContractorPolicy
      */
     public function update(User $user, Contractor $contractor): bool
     {
-        return $user->hasAnyRole(['super-admin', 'admin', 'user']);
+        return $user->hasAnyRole(['super-admin', 'admin',]);
     }
 
     /**
