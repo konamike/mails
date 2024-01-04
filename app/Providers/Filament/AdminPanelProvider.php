@@ -21,6 +21,7 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Rmsramos\Activitylog\ActivitylogPlugin;
+use Njxqlus\FilamentProgressbar\FilamentProgressbarPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -47,17 +48,19 @@ class AdminPanelProvider extends PanelProvider
             ->darkMode(true)
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
+
             ->pages([
                 Pages\Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-//                Widgets\AccountWidget::class,
-//                Widgets\FilamentInfoWidget::class,
-//                Widgets\StatsOverviewWidget::class,
+                //    Widgets\AccountWidget::class,
+                //    Widgets\FilamentInfoWidget::class,
+                //    Widgets\StatsOverviewWidget::class,
+
             ])
             ->userMenuItems([
-                        'logout' => MenuItem::make()->label('Log out'),
+                'logout' => MenuItem::make()->label('Log out'),
                 // ...
             ])
             ->navigationGroups([
@@ -68,24 +71,26 @@ class AdminPanelProvider extends PanelProvider
                 'Documents In-Process',
                 'Documents For Dispatch'
             ])
-             ->middleware([
-                    EncryptCookies::class,
-                    AddQueuedCookiesToResponse::class,
-                    StartSession::class,
-                    AuthenticateSession::class,
-                    ShareErrorsFromSession::class,
-                    VerifyCsrfToken::class,
-                    SubstituteBindings::class,
-                    DisableBladeIconComponents::class,
-                    DispatchServingFilamentEvent::class,
+            ->middleware([
+                EncryptCookies::class,
+                AddQueuedCookiesToResponse::class,
+                StartSession::class,
+                AuthenticateSession::class,
+                ShareErrorsFromSession::class,
+                VerifyCsrfToken::class,
+                SubstituteBindings::class,
+                DisableBladeIconComponents::class,
+                DispatchServingFilamentEvent::class,
             ])
             ->authMiddleware([
                 Authenticate::class,
             ])
+            ->plugin(new \RickDBCN\FilamentEmail\FilamentEmail())
+            ->plugin(FilamentProgressbarPlugin::make()->color('#29b000'))
             ->plugins([
                 ActivitylogPlugin::make()
-                ->navigationGroup('Activity Log')
-                ->navigationCountBadge(true),
+                    ->navigationGroup('Activities Log')
+                    ->navigationCountBadge(true),
             ]);
     }
 }

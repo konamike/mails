@@ -19,6 +19,7 @@ use App\Policies\ActivityPolicy;
 use App\Policies\AllfilePolicy;
 use App\Policies\CategoryPolicy;
 use App\Policies\ContractorPolicy;
+use App\Policies\EmailPolicy;
 use App\Policies\FiledispatchPolicy;
 use App\Policies\FilePolicy;
 use App\Policies\FiletreatPolicy;
@@ -32,6 +33,7 @@ use App\Policies\PermissionPolicy;
 use App\Policies\RolePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use RickDBCN\FilamentEmail\Models\Email;
 use Spatie\Activitylog\Models\Activity;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -59,6 +61,7 @@ class AuthServiceProvider extends ServiceProvider
         Permission::class => PermissionPolicy::class,
         Role::class => RolePolicy::class,
         Activity::class => ActivityPolicy::class,
+        Email::class => EmailPolicy::class,
 
     ];
 

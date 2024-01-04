@@ -2,12 +2,12 @@
 
 namespace App\Policies;
 
+
 use App\Models\User;
+use RickDBCN\FilamentEmail\Models\Email;
 use Illuminate\Auth\Access\Response;
-use Spatie\Activitylog\Models\Activity;
 
-
-class ActivityPolicy
+class EmailPolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -20,8 +20,9 @@ class ActivityPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Activity $activity): bool
+    public function view(User $user, Email $email): bool
     {
         return $user->hasAnyRole(['super-admin', 'admin']);
     }
+
 }

@@ -2,19 +2,20 @@
 
 namespace App\Filament\Widgets;
 
-namespace App\Filament\Widgets;
-
 use App\Models\File;
 
 use App\Models\Letter;
 
 use App\Models\Memo;
 
+
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
+use Spatie\Permission\Traits\HasRoles;
 
 class FilesOverview extends BaseWidget
 {
+    protected static ?int $sort = 1;
     protected function getColumns(): int
     {
         return 4;
@@ -71,6 +72,12 @@ class FilesOverview extends BaseWidget
                 ->icon('heroicon-s-chevron-double-down')
                 ->color('info'),
         ];
+    }
+
+    public static function canView(): bool
+    {
+        // return auth()->user()->is_admin;
+        return auth()->user()->hasAnyRole('md', 'admin', 'super-admin', 'hsd', 'cos');
     }
 
 }
