@@ -19,14 +19,17 @@ class ListAllmemos extends ListRecords
         return [
             'all' => Tab::make('All Memos'),
             'This Year' => Tab::make()
-                ->modifyQueryUsing(fn(Builder $query) => $query->where('date_received', '>=', now()->subYear()))
+                ->modifyQueryUsing(fn (Builder $query) => $query->where('date_received', '>=', now()->subYear()))
                 ->badge(Allmemo::query()->where('date_received', '>=', now()->subYear())->count()),
             'This Month' => Tab::make()
-                ->modifyQueryUsing(fn(Builder $query) => $query->where('date_received', '>=', now()->subMonth()))
+                ->modifyQueryUsing(fn (Builder $query) => $query->where('date_received', '>=', now()->subMonth()))
                 ->badge(Allmemo::query()->where('date_received', '>=', now()->subMonth())->count()),
             'This Week' => Tab::make()
-                ->modifyQueryUsing(fn(Builder $query) => $query->where('date_received', '>=', now()->subWeek()))
+                ->modifyQueryUsing(fn (Builder $query) => $query->where('date_received', '>=', now()->subWeek()))
                 ->badge(Allmemo::query()->where('date_received', '>=', now()->subWeek())->count()),
+            'Today' => Tab::make()
+                ->modifyQueryUsing(fn (Builder $query) => $query->where('date_received', '>=', now()->subDay()))
+                ->badge(Allmemo::query()->where('date_received', '>=', now()->subDay())->count()),
         ];
     }
 
@@ -34,5 +37,4 @@ class ListAllmemos extends ListRecords
     {
         return 'all';
     }
-
 }

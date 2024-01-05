@@ -9,7 +9,7 @@ use Filament\Resources\Pages\ListRecords;
 class ListMemotreats extends ListRecords
 {
     protected static string $resource = MemotreatResource::class;
-    protected static ?string $title = 'Memo Under Process';
+    protected static ?string $title = 'Memo In Process';
 
     protected function getHeaderActions(): array
     {

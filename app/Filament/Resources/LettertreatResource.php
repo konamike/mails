@@ -6,6 +6,7 @@ use App\Filament\Resources\LettertreatResource\Pages;
 use App\Filament\Resources\LettertreatResource\RelationManagers;
 use App\Models\Lettertreat;
 use Filament\Forms;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -53,6 +54,30 @@ class LettertreatResource extends Resource
                         Forms\Components\DatePicker::make('date_treated')
                             ->native(false)
                             ->required(),
+
+                        Hidden::make('dispatched')
+                            ->default('1'),
+                        Hidden::make('date_dispatched')
+                        ->default(now()),
+                        Hidden::make('dispatched_by')
+                            ->default(auth()->user()->id),
+
+
+                        // Forms\Components\Toggle::make('dispatched')
+                        //     ->label('Dispatched?')
+                        //     ->offIcon('heroicon-m-no-symbol')
+                        //     ->offColor('danger')
+                        //     ->onIcon('heroicon-m-check-badge')
+                        //     ->inline(true)
+                        //     ->default(true)
+                        //     ->required()
+                        //     ->visible(auth()->user()->hasAnyRole(['cos'])),
+                        // Forms\Components\DatePicker::make('date_dispatched')
+                        //     ->native(false)
+                        //     ->required()
+                        //     ->default(now())
+                        //     ->visible(auth()->user()->hasAnyRole(['cos'])),
+
                         Forms\Components\Textarea::make('treated_note')
                             ->label('Note for MD/CEO')
                             ->maxLength(65535)
@@ -89,13 +114,13 @@ class LettertreatResource extends Resource
                 //
             ])
             ->actions([
-//                Tables\Actions\ViewAction::make(),
+                //                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make()
-        ->label('Process')
-                ->button(),
+                    ->label('Process')
+                    ->button(),
             ])
             ->bulkActions([
-//
+                //
             ])
             ->emptyStateActions([
                 Tables\Actions\CreateAction::make(),
@@ -113,7 +138,7 @@ class LettertreatResource extends Resource
     {
         return [
             'index' => Pages\ListLettertreats::route('/'),
-//            'create' => Pages\CreateLettertreat::route('/create'),
+            //            'create' => Pages\CreateLettertreat::route('/create'),
             'view' => Pages\ViewLettertreat::route('/{record}'),
             'edit' => Pages\EditLettertreat::route('/{record}/edit'),
         ];

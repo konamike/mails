@@ -160,25 +160,25 @@ class AllletterResource extends Resource
                     ->wrap(),
 
                 Tables\Columns\IconColumn::make('treated')
-                ->label('Treated?')
-                ->boolean()
-                ->visible(Auth::user()->hasRole('engineer')),
-            Tables\Columns\IconColumn::make('treated')
-                ->label('In-Process?')
-                ->boolean()
-                ->visible(!Auth::user()->hasRole('engineer')),
-            Tables\Columns\TextColumn::make('date_treated')
-                ->label('Date Treated')
-                // ->visible(Auth::user()->hasRole('engineer'))
-                ->date()
-                ->hidden(Auth::user()->hasRole('frontdesk')),
+                    ->label('Treated?')
+                    ->boolean()
+                    ->visible(Auth::user()->hasRole('engineer')),
+                Tables\Columns\IconColumn::make('treated')
+                    ->label('In-Process?')
+                    ->boolean()
+                    ->visible(!Auth::user()->hasRole('engineer')),
+                Tables\Columns\TextColumn::make('date_treated')
+                    ->label('Date Treated')
+                    // ->visible(Auth::user()->hasRole('engineer'))
+                    ->date()
+                    ->hidden(Auth::user()->hasRole('frontdesk')),
                 Tables\Columns\IconColumn::make('dispatched')
                     ->label('Dispatched?')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('date_dispatched')
                     ->label('Date Dispatched')
                     ->date(),
-                    Tables\Columns\TextColumn::make('sent_to')
+                Tables\Columns\TextColumn::make('sent_to')
                     ->label('Dispatched To'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Date Created')
@@ -193,10 +193,10 @@ class AllletterResource extends Resource
                 Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
-//
+                //
             ])
             ->emptyStateActions([
-//
+                //
             ]);
     }
 
@@ -211,7 +211,7 @@ class AllletterResource extends Resource
     {
         return [
             'index' => Pages\ListAllletters::route('/'),
-//            'view' => Pages\ViewAllletter::route('/{record}'),
+            'view' => Pages\ViewAllletter::route('/{record}'),
         ];
     }
 }

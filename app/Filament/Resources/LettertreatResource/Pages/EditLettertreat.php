@@ -6,6 +6,7 @@ use App\Filament\Resources\LettertreatResource;
 use Filament\Actions;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\EditRecord;
+use Spatie\Permission\Traits\HasRoles;
 
 class EditLettertreat extends EditRecord
 {
@@ -16,7 +17,13 @@ class EditLettertreat extends EditRecord
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
-        $data['treated_by'] = auth()->id();
+        // if (auth()->user()->hasAnyRole('cos')) {
+        //     $data['dispatched'] = true;
+        //     $data['dispatched_by'] = auth()->id();
+        //     $data['date_dispatched'] = now();
+        // }
+            $data['treated_by'] = auth()->id();
+
         return $data;
     }
     protected function getSavedNotification(): ?Notification
@@ -24,8 +31,7 @@ class EditLettertreat extends EditRecord
         return Notification::make()
             ->success()
             ->title('Letter Treated/Processed')
-            ->body('The letter was updated successfully')
-            ->duration(4000);
+            ->body('The letter was updated successfully');
     }
 
 

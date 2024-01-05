@@ -169,7 +169,7 @@ class AllmemoResource extends Resource
                     ->searchable()
                     ->wrap(),
 
-                    Tables\Columns\IconColumn::make('treated')
+                Tables\Columns\IconColumn::make('treated')
                     ->label('Treated?')
                     ->boolean()
                     ->visible(Auth::user()->hasRole('engineer')),
@@ -189,7 +189,7 @@ class AllmemoResource extends Resource
                 Tables\Columns\TextColumn::make('date_dispatched')
                     ->label('Dispatch Date')
                     ->date(),
-                    Tables\Columns\TextColumn::make('sent_to')
+                Tables\Columns\TextColumn::make('sent_to')
                     ->limit(20)
                     ->label('Sent To')
                     ->default('Not Sent'),
@@ -228,7 +228,7 @@ class AllmemoResource extends Resource
     {
         return [
             'index' => Pages\ListAllmemos::route('/'),
-            //            'view' => Pages\ViewAllmemo::route('/{record}'),
+            'view' => Pages\ViewAllmemo::route('/{record}'),
         ];
     }
 }

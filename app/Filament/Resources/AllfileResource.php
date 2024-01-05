@@ -165,7 +165,7 @@ class AllfileResource extends Resource
                 Tables\Columns\IconColumn::make('treated')
                     ->label('In-Process?')
                     ->boolean()
-                    ->visible(! auth()->user()->hasRole('engineer')),
+                    ->visible(!auth()->user()->hasRole('engineer')),
                 Tables\Columns\TextColumn::make('date_treated')
                     ->label('Date Treated')
                     ->date()
@@ -178,11 +178,11 @@ class AllfileResource extends Resource
                     ->label('Date Dispatched'),
                 Tables\Columns\TextColumn::make('sent_to')
                     ->label('Dispatched To'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->label('Date Created')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Columns\TextColumn::make('created_at')
+                //     ->label('Date Created')
+                //     ->dateTime()
+                //     ->sortable()
+                //     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
@@ -193,9 +193,9 @@ class AllfileResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make()
-                    ->visible(auth()->user()->hasAnyRole(['super-admin'])),
+                        ->visible(auth()->user()->hasAnyRole(['super-admin'])),
                     ExportBulkAction::make()
-                    ->visible(auth()->user()->hasAnyRole(['super-admin', 'admin'])),
+                        ->visible(auth()->user()->hasAnyRole(['super-admin', 'admin'])),
                 ])->iconButton(),
             ])
             ->emptyStateActions([
@@ -214,7 +214,7 @@ class AllfileResource extends Resource
     {
         return [
             'index' => Pages\ListAllfiles::route('/'),
-            //            'view' => Pages\ViewAllfile::route('/{record}'),
+            'view' => Pages\ViewAllfile::route('/{record}'),
         ];
     }
 }

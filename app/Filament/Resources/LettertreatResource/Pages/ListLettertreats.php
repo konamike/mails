@@ -10,7 +10,7 @@ class ListLettertreats extends ListRecords
 {
 
     protected static string $resource = LettertreatResource::class;
-    protected static ?string $title = 'Letter Under Process';
+    protected static ?string $title = 'Letter In Process';
 
     protected function getHeaderActions(): array
     {

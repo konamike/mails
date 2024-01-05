@@ -9,7 +9,7 @@ use Filament\Resources\Pages\ListRecords;
 class ListFiletreats extends ListRecords
 {
     protected static string $resource = FiletreatResource::class;
-    protected static ?string $title = 'Files Under Process';
+    protected static ?string $title = 'Files In Process';
 
     protected function getHeaderActions(): array
     {
