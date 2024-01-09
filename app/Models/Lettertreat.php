@@ -30,7 +30,15 @@ class Lettertreat extends Model
         'treated',
         'date_treated',
         'treated_by',
-        'treated_notes',
+        'treated_note',
+        'date_dispatched',
+        'dispatch_phone',
+        'dispatch_email',
+        'dispatched_by',
+        'dispatch_note',
+        'dispatched',
+        'sent_to',
+        'sent_from',
         'remarks',
         'user_id',
     ];
@@ -61,7 +69,7 @@ class Lettertreat extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logOnly(['description', 'contractor_id', 'amount', 'treated', 'treated_by', 'dispatched', 'dispatch_note'])
+            ->logOnly(['description', 'contractor_id', 'amount', 'treated', 'treated_note', 'treated_by', 'dispatched', 'dispatch_note'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();
     }

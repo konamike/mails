@@ -55,29 +55,6 @@ class LettertreatResource extends Resource
                             ->native(false)
                             ->required(),
 
-                        Hidden::make('dispatched')
-                            ->default('1'),
-                        Hidden::make('date_dispatched')
-                        ->default(now()),
-                        Hidden::make('dispatched_by')
-                            ->default(auth()->user()->id),
-
-
-                        // Forms\Components\Toggle::make('dispatched')
-                        //     ->label('Dispatched?')
-                        //     ->offIcon('heroicon-m-no-symbol')
-                        //     ->offColor('danger')
-                        //     ->onIcon('heroicon-m-check-badge')
-                        //     ->inline(true)
-                        //     ->default(true)
-                        //     ->required()
-                        //     ->visible(auth()->user()->hasAnyRole(['cos'])),
-                        // Forms\Components\DatePicker::make('date_dispatched')
-                        //     ->native(false)
-                        //     ->required()
-                        //     ->default(now())
-                        //     ->visible(auth()->user()->hasAnyRole(['cos'])),
-
                         Forms\Components\Textarea::make('treated_note')
                             ->label('Note for MD/CEO')
                             ->maxLength(65535)

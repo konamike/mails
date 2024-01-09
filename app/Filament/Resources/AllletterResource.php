@@ -169,9 +169,9 @@ class AllletterResource extends Resource
                     ->visible(!Auth::user()->hasRole('engineer')),
                 Tables\Columns\TextColumn::make('date_treated')
                     ->label('Date Treated')
-                    // ->visible(Auth::user()->hasRole('engineer'))
-                    ->date()
-                    ->hidden(Auth::user()->hasRole('frontdesk')),
+                    ->visible(Auth::user()->hasRole('engineer'))
+                    ->date(),
+                    // ->hidden(Auth::user()->hasRole('frontdesk')),
                 Tables\Columns\IconColumn::make('dispatched')
                     ->label('Dispatched?')
                     ->boolean(),
