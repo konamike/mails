@@ -17,7 +17,7 @@ class LetterdispatchResource extends Resource
 {
     protected static ?string $model = Letterdispatch::class;
     protected static ?string $navigationIcon = 'heroicon-s-envelope';
-    protected static ?string $navigationGroup = 'Documents For Dispatch';
+    protected static ?string $navigationGroup = 'Outgoing Documents';
     protected static ?string $navigationLabel = 'Letter';
     protected static ?int $navigationSort = 2;
 
@@ -118,7 +118,7 @@ class LetterdispatchResource extends Resource
                     ->button(),
             ])
             ->bulkActions([
-// 
+//
             ])
             ->emptyStateActions([
 //                Tables\Actions\CreateAction::make(),

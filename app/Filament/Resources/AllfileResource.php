@@ -166,6 +166,9 @@ class AllfileResource extends Resource
                     ->label('In-Process?')
                     ->boolean()
                     ->visible(!auth()->user()->hasRole('engineer')),
+                Tables\Columns\TextColumn::make('treated_note')
+                    ->label('Doc. Remark')
+                    ->visible(auth()->user()->hasRole('md')),
                 Tables\Columns\TextColumn::make('date_treated')
                     ->label('Date Treated')
                     ->date()

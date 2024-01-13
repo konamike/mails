@@ -53,6 +53,13 @@ class UserResource extends Resource
         return 'success';
     }
 
+    public static function getEloquentQuery(): Builder
+    {
+        return static::getModel()::query()
+            ->where('id', '!=', 1);
+    }
+
+
     public static function form(Form $form): Form
     {
         return $form

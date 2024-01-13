@@ -21,6 +21,14 @@ class EditFiledispatch extends EditRecord
         ];
     }
 
+    protected function mutateFormDataBeforeSave($data): array
+    {
+
+        $data['date_dispatched'] = now();
+        return $data;
+    }
+
+
     protected static bool $canCreateAnother = false;
     protected function getSavedNotification(): ?Notification
     {

@@ -177,6 +177,9 @@ class AllmemoResource extends Resource
                     ->label('In-Process?')
                     ->boolean()
                     ->visible(!Auth::user()->hasRole('engineer')),
+                Tables\Columns\TextColumn::make('treated_note')
+                    ->label('Doc. Remark')
+                    ->visible(auth()->user()->hasRole('md')),
                 Tables\Columns\TextColumn::make('date_treated')
                     ->label('Date Treated')
                     // ->visible(Auth::user()->hasRole('engineer'))

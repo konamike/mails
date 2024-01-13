@@ -52,73 +52,76 @@ class MemoResource extends Resource
             ->schema([
 
                 Fieldset::make('PRIMARY INFORMATION')
-                ->schema([
+                    ->schema([
 
-                    Forms\Components\Textarea::make('description')
-                    ->required()
-                    ->label('File Description')
-                    ->maxLength(65535)
-                    ->columnSpanFull(),
-                Forms\Components\Select::make('contractor_id')
-                    ->label('Mail Source')
-                    ->relationship('contractor', 'name')
-                    ->searchable()
-                    ->preload()
-                    ->native(false)
-                    ->required()
-                    ->default(1),
-                Forms\Components\Select::make('category_id')
-                    ->label('Category')
-                    ->searchable()
-                    ->options(Category::where('document_type', 'MEMO')->pluck('name', 'id'))
-                    ->preload()
-                    ->label('Document Category')
-                    ->reactive(),
-                Forms\Components\Select::make('received_by')
-                    ->label('Received By')
-                    ->native(false)
-                    ->required()
-                    ->options(User::where('is_admin', 0)->pluck('name', 'id'))
-                    ->preload(),
-                Forms\Components\DatePicker::make('date_received')
-                    ->native(false)
-                    ->default(now())
-                    ->required(),
-                Forms\Components\TextInput::make('doc_author')
-                    ->label('Document Author')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('file_number')
-                    ->maxLength(255),
-                ])->columns(3),
+                        Forms\Components\Textarea::make('description')
+                            ->required()
+                            ->label('File Description')
+                            ->maxLength(65535)
+                            ->columnSpanFull(),
+                        Forms\Components\Select::make('contractor_id')
+                            ->label('Mail Source')
+                            ->relationship('contractor', 'name')
+                            ->searchable()
+                            ->preload()
+                            ->native(false)
+                            ->required()
+                            ->default(1),
+                        Forms\Components\Select::make('category_id')
+                            ->label('Category')
+                            ->searchable()
+                            ->options(Category::where('document_type', 'MEMO')->pluck('name', 'id'))
+                            ->preload()
+                            ->label('Document Category')
+                            ->reactive(),
+                        Forms\Components\Select::make('received_by')
+                            ->label('Received By')
+                            ->native(false)
+                            ->required()
+                            ->options(User::where('is_admin', 0)->pluck('name', 'id'))
+                            ->preload(),
+                        Forms\Components\DatePicker::make('date_received')
+                            ->native(false)
+                            ->default(now())
+                            ->required(),
+                        Forms\Components\TextInput::make('doc_author')
+                            ->label('Document Author')
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('file_number')
+                            ->maxLength(255),
+                    ])->columns(3),
 
 
                 Fieldset::make('ADDITIONAL DETAILS')
-                ->schema([
-                    Forms\Components\TextInput::make('amount')
-                    ->numeric(),
-                Forms\Components\TextInput::make('phone')
-                    ->label('Phone Number')
-                    ->minLength(11)
-                    ->maxLength(11),
-                Forms\Components\TextInput::make('email')
-                    ->label('Email'),
-                Forms\Components\Textarea::make('remarks')
-                    ->maxLength(65535)
-                    ->columnSpanFull(),
-
-                ])->columns(3),
+                    ->schema([
+                        Forms\Components\TextInput::make('amount')
+                            ->numeric(),
+                        Forms\Components\TextInput::make('phone')
+                            ->label('Phone Number')
+                            ->minLength(11)
+                            ->maxLength(11),
+                        Forms\Components\TextInput::make('email')
+                            ->label('Email'),
+                    ])->columns(3),
 
 
                 Fieldset::make('DOCUMENT RETRIEVAL')
-                ->schema([
-                    Forms\Components\TextInput::make('hand_carried')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('retrieved_by')
-                    ->maxLength(255),
-                Forms\Components\DatePicker::make('date_retrieved')
-                    ->native(false)
-                    ->default(now()),
-            ])->columns(3)->visibleOn(['edit', 'view']),
+                    ->schema([
+                        Forms\Components\TextInput::make('hand_carried')
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('retrieved_by')
+                            ->maxLength(255),
+                        Forms\Components\DatePicker::make('date_retrieved')
+                            ->native(false)
+                            ->default(now()),
+                    ])->columns(3)->visibleOn(['edit', 'view']),
+
+                Fieldset::make('REMARKS')
+                    ->schema([
+                        Forms\Components\Textarea::make('remarks')
+                            ->maxLength(65535)
+                            ->columnSpanFull(),
+                    ])
             ]);
     }
 
@@ -127,8 +130,8 @@ class MemoResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('date_received')
-                ->date()
-                ->sortable(),
+                    ->date()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('description')
                     ->searchable()
                     ->wrap()

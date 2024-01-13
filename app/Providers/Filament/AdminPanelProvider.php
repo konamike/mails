@@ -69,7 +69,8 @@ class AdminPanelProvider extends PanelProvider
                 'All Documents',
                 'Incoming Documents',
                 'Documents In-Process',
-                'Documents For Dispatch'
+                'Outgoing Documents',
+                'Activity Log'
             ])
             ->middleware([
                 EncryptCookies::class,

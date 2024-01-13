@@ -20,7 +20,7 @@ class FiledispatchResource extends Resource
     protected static ?string $model = Filedispatch::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-film';
-    protected static ?string $navigationGroup = 'Documents For Dispatch';
+    protected static ?string $navigationGroup = 'Outgoing Documents';
     protected static ?string $navigationLabel = 'Files';
     protected static ?int $navigationSort = 1;
 
@@ -52,6 +52,7 @@ class FiledispatchResource extends Resource
                     ->schema([
                         Forms\Components\Textarea::make('description')
                             ->readOnly()
+                            ->label('File Description')
                             ->columnSpanFull(),
                         Forms\Components\TextInput::make('sent_from')
                             ->default('MD/CEO')
@@ -68,16 +69,16 @@ class FiledispatchResource extends Resource
                             ->onIcon('heroicon-m-check-badge')
                             ->inline(false)
                             ->required(),
-                        Forms\Components\DatePicker::make('date_dispatched')
-                            ->label('Dispatched Date')
-                            ->default(now())
-                            ->required()
-                            ->native(false),
+                        // Forms\Components\DatePicker::make('date_dispatched')
+                        //     ->label('Dispatched Date')
+                        //     ->default(now())
+                        //     ->required()
+                        //     ->native(false),
                         Forms\Components\TextInput::make('dispatch_phone')
                             ->label('Dispatch Phone')
                             ->minLength(11)
-                            ->maxLength(11)
-                            ->required(),
+                            ->maxLength(11),
+                        // ->required(),
                         Forms\Components\TextInput::make('dispatch_email')
                             ->label('Dispatch Email')
                             ->helperText('Email to be used to deliver the dispatch message.')
@@ -87,6 +88,7 @@ class FiledispatchResource extends Resource
                             ->label('Dispatched By/Hand Carried')
                             ->maxLength(255),
                         Forms\Components\Textarea::make('dispatch_note')
+                            ->label('Dispatch Remarks')
                             ->maxLength(65535)
                             ->columnSpanFull(),
                     ])->columns(3),
@@ -122,16 +124,14 @@ class FiledispatchResource extends Resource
                 //
             ])
             ->actions([
-//                Tables\Actions\ViewAction::make(),
+                //                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make()
                     ->label('Process Dispatch')
                     ->button(),
             ])
-            ->bulkActions([
-                
-            ])
+            ->bulkActions([])
             ->emptyStateActions([
-//                Tables\Actions\CreateAction::make(),
+                //                Tables\Actions\CreateAction::make(),
             ]);
     }
 
@@ -146,7 +146,7 @@ class FiledispatchResource extends Resource
     {
         return [
             'index' => Pages\ListFiledispatches::route('/'),
-//            'create' => Pages\CreateFiledispatch::route('/create'),
+            //            'create' => Pages\CreateFiledispatch::route('/create'),
             'view' => Pages\ViewFiledispatch::route('/{record}'),
             'edit' => Pages\EditFiledispatch::route('/{record}/edit'),
         ];

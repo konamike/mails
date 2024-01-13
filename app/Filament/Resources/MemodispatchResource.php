@@ -16,8 +16,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class MemodispatchResource extends Resource
 {
     protected static ?string $model = Memodispatch::class;
-    protected static ?string $navigationIcon = 'heroicon-s-chevron-double-down';    
-    protected static ?string $navigationGroup = 'Documents For Dispatch';
+    protected static ?string $navigationIcon = 'heroicon-s-chevron-double-down';
+    protected static ?string $navigationGroup = 'Outgoing Documents';
     protected static ?string $navigationLabel = 'Memos';
     protected static ?int $navigationSort = 3;
 
@@ -117,7 +117,7 @@ class MemodispatchResource extends Resource
                 ->button(),
             ])
             ->bulkActions([
-// 
+//
             ])
             ->emptyStateActions([
 //                Tables\Actions\CreateAction::make(),

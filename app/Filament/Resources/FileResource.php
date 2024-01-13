@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Support\Number;
 use phpDocumentor\Reflection\PseudoTypes\TraitString;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 use Rmsramos\Activitylog\RelationManagers\ActivitylogRelationManager;
@@ -69,22 +70,23 @@ class FileResource extends Resource
                             ->label('Category')
                             ->searchable()
                             ->relationship('category', 'name')
-                            // ->options(Category::where('document_type', 'FILE')->pluck('name', 'id'))
-                            ->getSearchResultsUsing(fn (string $search): array => Category::where('name', 'like', "%{$search}%")->limit(50)->pluck('name', 'id')->toArray())
-                            ->getOptionLabelUsing(fn ($value): ?string => Category::find($value)?->name)
+                            ->options(Category::where('document_type', 'FILE')->pluck('name', 'id'))
+                            // ->getSearchResultsUsing(fn (string $search): array => Category::where('name', 'like', "%{$search}%")->limit(50)->pluck('name', 'id')->toArray())
+                            // ->getOptionLabelUsing(fn ($value): ?string => Category::find($value)?->name)
                             ->preload()
                             ->required()
                             ->label('Document Category')
                             ->reactive()
-                            ->createOptionForm([
-                                Forms\Components\TextInput::make('document_type')
-                                    ->default('LETTER')
-                                    ->label('Document Type')
-                                    ->readOnly(),
-                                Forms\Components\TextInput::make('name')
-                                    ->label('Name')
-                                    ->required()
-                            ]),
+                        // ->createOptionForm([
+                        //     Forms\Components\TextInput::make('document_type')
+                        //         ->default('LETTER')
+                        //         ->label('Document Type')
+                        //         ->readOnly(),
+                        //     Forms\Components\TextInput::make('name')
+                        //         ->label('Name')
+                        //         ->required()
+                        // ])
+                        ,
                         Forms\Components\Select::make('contractor_id')
                             ->label('Mail Source')
                             ->relationship('contractor', 'name')
@@ -93,21 +95,22 @@ class FileResource extends Resource
                             ->native(false)
                             ->required()
                             ->default(1)
-                            ->createOptionForm([
-                                Forms\Components\TextInput::make('name')
-                                    ->label('Name')
-                                    ->required()
-                                    ->columnSpanFull(),
-                                Forms\Components\TextInput::make('email')
-                                    ->label('Email'),
-                                Forms\Components\TextInput::make('phone')
-                                    ->label('Phone'),
-                                Forms\Components\TextInput::make('contact_person')
-                                    ->label('Contact Person'),
-                                Forms\Components\TextInput::make('contact_phone')
-                                    ->label('Contact Phone')
-                                    ->columns(2),
-                            ]),
+                        // ->createOptionForm([
+                        //     Forms\Components\TextInput::make('name')
+                        //         ->label('Name')
+                        //         ->required()
+                        //         ->columnSpanFull(),
+                        //     Forms\Components\TextInput::make('email')
+                        //         ->label('Email'),
+                        //     Forms\Components\TextInput::make('phone')
+                        //         ->label('Phone'),
+                        //     Forms\Components\TextInput::make('contact_person')
+                        //         ->label('Contact Person'),
+                        //     Forms\Components\TextInput::make('contact_phone')
+                        //         ->label('Contact Phone')
+                        //         ->columns(2),
+                        // ])
+                        ,
                         Forms\Components\TextInput::make('file_number')
                             ->maxLength(255),
                         Forms\Components\Select::make('received_by')
@@ -117,7 +120,6 @@ class FileResource extends Resource
                             ->options(User::where('is_admin', 0)->pluck('name', 'id'))
                             ->preload(),
                         Forms\Components\DatePicker::make('date_received')
-
                             ->default(now())
                             ->required(),
                         Forms\Components\TextInput::make('doc_author')
@@ -142,9 +144,6 @@ class FileResource extends Resource
                         Forms\Components\TextInput::make('email')
                             ->label('Email')
                             ->placeholder('Pls enter email for receipt of document info'),
-                        Forms\Components\Textarea::make('remarks')
-                            ->maxLength(65535)
-                            ->columnSpanFull(),
 
                     ])->columns(2),
 
@@ -160,6 +159,13 @@ class FileResource extends Resource
 
                     ])->columns(2)->visibleOn(['edit', 'view']),
 
+                Fieldset::make('REMARKS')
+                    ->schema([
+                        Forms\Components\Textarea::make('remarks')
+                            ->maxLength(65535)
+                            ->columnSpanFull(),
+                    ])
+
             ]);
     }
 
@@ -173,14 +179,18 @@ class FileResource extends Resource
                     ->searchable()
                     ->label('Description')
                     ->wrap(),
-
-                // ->since(),
                 Tables\Columns\TextColumn::make('doc_author')
                     ->label('Document Author')
                     ->limit(35)
                     ->searchable(),
                 Tables\Columns\IconColumn::make('treated')
                     ->boolean(),
+                // Tables\Columns\TextColumn::make('amount')
+                //     ->numeric(
+                //         decimalPlaces: 2,
+                //         decimalSeparator: '.',
+                //         thousandsSeparator: ','
+                //     ),
                 Tables\Columns\TextColumn::make('created_at')
                     ->date(format: 'dS M. Y h:i A')
                     ->label('Created At')

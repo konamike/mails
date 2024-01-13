@@ -91,32 +91,33 @@ class LetterResource extends Resource
 
                     ])->columns(3),
 
-
-                    Fieldset::make('ADDITIONAL DETAILS')
+                Fieldset::make('ADDITIONAL DETAILS')
                     ->schema([
                         Forms\Components\TextInput::make('amount')
-                        ->numeric(),
-                    Forms\Components\TextInput::make('phone')
-                        ->label('Phone Number'),
-                    Forms\Components\TextInput::make('email')
-                        ->label('Email'),
-                    Forms\Components\Textarea::make('remarks')
-                        ->maxLength(65535)
-                        ->columnSpanFull(),
-
+                            ->numeric(),
+                        Forms\Components\TextInput::make('phone')
+                            ->label('Phone Number'),
+                        Forms\Components\TextInput::make('email')
+                            ->label('Email'),
                     ])->columns(3),
 
-
-                    Fieldset::make('DOCUMENT RETRIEVAL')
+                Fieldset::make('DOCUMENT RETRIEVAL')
                     ->schema([
                         Forms\Components\TextInput::make('hand_carried')
-                        ->maxLength(255),
-                    Forms\Components\TextInput::make('retrieved_by')
-                        ->maxLength(255),
-                    Forms\Components\DatePicker::make('date_retrieved')
-                        ->native(false)
-                        ->default(now()),
-                ])->columns(2)->visibleOn(['edit', 'view']),
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('retrieved_by')
+                            ->maxLength(255),
+                        Forms\Components\DatePicker::make('date_retrieved')
+                            ->native(false)
+                            ->default(now()),
+                    ])->columns(2)->visibleOn(['edit', 'view']),
+
+                Fieldset::make('REMARKS')
+                    ->schema([
+                        Forms\Components\Textarea::make('remarks')
+                            ->maxLength(65535)
+                            ->columnSpanFull(),
+                    ])
             ]);
     }
 
