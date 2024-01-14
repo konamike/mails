@@ -59,6 +59,14 @@ class MemoResource extends Resource
                             ->label('File Description')
                             ->maxLength(65535)
                             ->columnSpanFull(),
+                            Forms\Components\Select::make('category_id')
+                            ->label('Category')
+                            ->searchable()
+                            ->options(Category::where('document_type', 'MEMO')->pluck('name', 'id'))
+                            ->preload()
+                            ->required()
+                            ->label('Document Category')
+                            ->reactive(),
                         Forms\Components\Select::make('contractor_id')
                             ->label('Mail Source')
                             ->relationship('contractor', 'name')
@@ -67,13 +75,7 @@ class MemoResource extends Resource
                             ->native(false)
                             ->required()
                             ->default(1),
-                        Forms\Components\Select::make('category_id')
-                            ->label('Category')
-                            ->searchable()
-                            ->options(Category::where('document_type', 'MEMO')->pluck('name', 'id'))
-                            ->preload()
-                            ->label('Document Category')
-                            ->reactive(),
+
                         Forms\Components\Select::make('received_by')
                             ->label('Received By')
                             ->native(false)

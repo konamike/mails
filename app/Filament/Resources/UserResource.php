@@ -29,6 +29,8 @@ use Filament\Tables\Actions\RestoreBulkAction;
 use Filament\Tables\Actions\ForceDeleteBulkAction;
 use App\Filament\Resources\UserResource\Pages\EditUser;
 use App\Filament\Resources\UserResource\Pages\ListUsers;
+use Filament\Notifications\Notification;
+use Attribute;
 use Rmsramos\Activitylog\RelationManagers\ActivitylogRelationManager;
 
 
@@ -76,29 +78,31 @@ class UserResource extends Resource
                 TextInput::make('password')
                     ->password()
                     ->maxLength(255)
-                    ->dehydrateStateUsing(static fn (null|string $state): null|string =>
-                    filled($state) ? Hash::make($state): null,
-                    )->required(static fn (Page $livewire): bool =>
+                    ->dehydrateStateUsing(
+                        static fn (null|string $state): null|string =>
+                        filled($state) ? Hash::make($state) : null,
+                    )->required(
+                        static fn (Page $livewire): bool =>
                         $livewire instanceof CreateUser,
-                    )->dehydrated(static fn (null|string $state): bool =>
-                    filled($state),
-                    )->label(static fn (Page $livewire): string =>
-                    ($livewire instanceof EditUser) ? 'New Password' : 'Password'
+                    )->dehydrated(
+                        static fn (null|string $state): bool =>
+                        filled($state),
+                    )->label(
+                        static fn (Page $livewire): string => ($livewire instanceof EditUser) ? 'New Password' : 'Password'
                     ),
 
                 Select::make('roles')
                     ->searchable()
-                    ->relationship('roles', 'name')
+                    ->relationship(
+                        name: 'roles',
+                        titleAttribute: 'name',
+                        modifyQueryUsing: fn (Builder $query) => $query->where('name', '<>', 'super-admin'),
+                    )
                     ->preload()
                     ->required(),
                 Forms\Components\Toggle::make('is_admin')
+                    ->default(false)
                     ->required(),
-
-//                CheckboxList::make('roles')
-//                    ->relationship('roles', 'name')
-//                    ->columns(2)
-//                    ->helperText('Only Choose One!')
-//                    ->required()
             ]);
     }
 
@@ -107,19 +111,20 @@ class UserResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Names')
                     ->searchable(),
                 Tables\Columns\IconColumn::make('is_admin')
+                    ->label('Is Admin?')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('roles.name')
-                    ->sortable(),
+                    ->label('User Role'),
                 Tables\Columns\TextColumn::make('deleted_at')
-                    ->dateTime('Y-M-d:h:i:sa')
-                    ->sortable(),
+                    ->label('Date Deleted')
+                    ->dateTime('Y-M-d:h:i:sa'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime('Y-M-d')
-                    ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
@@ -127,6 +132,13 @@ class UserResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\RestoreAction::make()
+                    ->successNotification(
+                        Notification::make()
+                            ->success()
+                            ->title('User restored')
+                            ->body('The user has been restored successfully.'),
+                    ),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

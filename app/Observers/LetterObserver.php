@@ -14,16 +14,16 @@ class LetterObserver
      */
     public function created(Letter $letter): void
     {
-        Notification::make()
-            ->warning()
-            ->title('New File Created')
-            ->body('A new letter has been created in the database')
-            ->actions([
-	            Action::make('View')
-                    ->button()
-                    ->url(route('filament.admin.resources.letters.index')),
-            ])
-            ->sendToDatabase(\auth()->user());
+        // Notification::make()
+        //     ->warning()
+        //     ->title('New File Created')
+        //     ->body('A new letter has been created in the database')
+        //     ->actions([
+	    //         Action::make('View')
+        //             ->button()
+        //             ->url(route('filament.admin.resources.letters.index')),
+        //     ])
+        //     ->sendToDatabase(\auth()->user());
     }
 
     /**
@@ -31,16 +31,16 @@ class LetterObserver
      */
     public function updated(Letter $letter): void
     {
-        Notification::make()
-            ->warning()
-            ->title('Letter Updated')
-            ->body('Letter has been successfully updated.')
-            ->actions([
-	            Action::make('View')
-                    ->button()
-                    ->url(route('filament.admin.resources.letters.index')),
-            ])
-            ->sendToDatabase(\auth()->user());
+        // Notification::make()
+        //     ->warning()
+        //     ->title('Letter Updated')
+        //     ->body('Letter has been successfully updated.')
+        //     ->actions([
+	    //         Action::make('View')
+        //             ->button()
+        //             ->url(route('filament.admin.resources.letters.index')),
+        //     ])
+        //     ->sendToDatabase(\auth()->user());
     }
 
     /**

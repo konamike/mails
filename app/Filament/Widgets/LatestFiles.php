@@ -41,6 +41,6 @@ class LatestFiles extends BaseWidget
 
     public static function canView(): bool
 {
-    return auth()->user()->hasAnyRole('user');
+    return auth()->user()->hasAnyRole('user', 'engineer');
 }
 }

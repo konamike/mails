@@ -47,6 +47,6 @@ protected function getStats(): array
 public static function canView(): bool
 {
     // return auth()->user()->is_admin;
-    return auth()->user()->hasAnyRole('user');
+    return auth()->user()->hasAnyRole('user', 'engineer');
 }
 }

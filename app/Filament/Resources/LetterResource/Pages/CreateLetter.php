@@ -4,6 +4,7 @@ namespace App\Filament\Resources\LetterResource\Pages;
 
 use App\Filament\Resources\LetterResource;
 use App\Mail\DocumentReceivedMail;
+use App\Models\Contractor;
 use Filament\Actions;
 use Filament\Actions\Action;
 use Filament\Notifications\Notification;
@@ -44,6 +45,12 @@ class CreateLetter extends CreateRecord
         return $data;
     }
 
+    protected function mutateFormDataBeforeFill(array $data): array
+    {
+        $data['contrator_id'] = Contractor::where('id', '=', 1)->contractor->id;
+
+        return $data;
+    }
     protected function getRedirectUrl(): string
     {
         return $this->getResource()::getUrl('index');
