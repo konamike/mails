@@ -64,9 +64,9 @@ class LetterdispatchResource extends Resource
                             ->onIcon('heroicon-m-check-badge')
                             ->inline(false)
                             ->required(),
-                        Forms\Components\DatePicker::make('date_dispatched')
-                            ->required()
-                            ->native(false),
+                        // Forms\Components\DatePicker::make('date_dispatched')
+                        //     ->default(now())
+                        //     ->native(false),
                         Forms\Components\TextInput::make('dispatch_phone')
                             ->minLength(11)
                             ->maxLength(11)
@@ -98,15 +98,9 @@ class LetterdispatchResource extends Resource
                     ->boolean(),
                 Tables\Columns\TextColumn::make('date_treated')
                     ->date()
-                    ->label('Date Treated')
-                    ->sortable(),
+                    ->label('Date Treated'),
                 Tables\Columns\IconColumn::make('dispatched')
                     ->boolean(),
-
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //

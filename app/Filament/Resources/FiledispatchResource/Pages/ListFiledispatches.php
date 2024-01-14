@@ -17,5 +17,6 @@ class ListFiledispatches extends ListRecords
         ];
     }
 
-    public static ?string $title = 'Files for Dispatch';
+    // public static ?string $title = 'Files for Dispatch';
+    protected static ?string $title = ' ';
 }

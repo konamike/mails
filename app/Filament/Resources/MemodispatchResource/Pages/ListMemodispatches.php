@@ -9,7 +9,8 @@ use Filament\Resources\Pages\ListRecords;
 class ListMemodispatches extends ListRecords
 {
     protected static string $resource = MemodispatchResource::class;
-    protected static ?string $title = 'Memos for Dispatch';
+    // protected static ?string $title = 'Memos for Dispatch';
+    protected static ?string $title = ' ';
 
     protected function getHeaderActions(): array
     {

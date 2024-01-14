@@ -14,6 +14,7 @@ class EditFiledispatch extends EditRecord
 {
     protected static string $resource = FiledispatchResource::class;
     protected static ?string $title = 'Dispatch File';
+
     protected function getHeaderActions(): array
     {
         return [

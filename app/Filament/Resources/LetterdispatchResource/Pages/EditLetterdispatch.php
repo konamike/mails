@@ -18,7 +18,7 @@ class EditLetterdispatch extends EditRecord
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
-        $data['dispatched_by'] = auth()->id();
+        $data['date_dispatched'] = now();
         return $data;
     }
     protected function getSavedNotification(): ?Notification

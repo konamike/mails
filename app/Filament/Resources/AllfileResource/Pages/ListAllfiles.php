@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class ListAllfiles extends ListRecords
 {
-    protected static ?string $title = ' All Files';
+    protected static ?string $title = '';
     protected static string $resource = AllfileResource::class;
 
     public static function canView(): bool

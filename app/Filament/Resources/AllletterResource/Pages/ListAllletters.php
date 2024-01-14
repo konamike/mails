@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
 class ListAllletters extends ListRecords
 {
     protected static string $resource = AllletterResource::class;
-    protected static ?string $title = ' All Letters';
+    protected static ?string $title = '';
 
     public function getTabs(): array
     {

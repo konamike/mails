@@ -9,7 +9,9 @@ use Filament\Resources\Pages\ListRecords;
 class ListLetterdispatches extends ListRecords
 {
     protected static string $resource = LetterdispatchResource::class;
-    protected static ?string $title = 'Letters for Dispatch';
+    // protected static ?string $title = 'Letters for Dispatch';
+
+    protected static ?string $title = ' ';
 
     protected function getHeaderActions(): array
     {
