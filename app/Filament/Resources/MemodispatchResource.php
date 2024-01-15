@@ -84,11 +84,12 @@ class MemodispatchResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('description')
+                Tables\Columns\TextColumn::make('contractor.name')
+                    ->label('Mail Source')
                     ->searchable()
                     ->wrap(),
-                Tables\Columns\TextColumn::make('contractor.name')
-                    ->label('Mail Initiator')
+                Tables\Columns\TextColumn::make('description')
+                    ->searchable()
                     ->wrap(),
                 Tables\Columns\IconColumn::make('treated')
                     ->boolean(),

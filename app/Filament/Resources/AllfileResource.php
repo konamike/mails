@@ -152,8 +152,11 @@ class AllfileResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('date_received')
                     ->date()
-                    ->label('Date Received')
-                    ->sortable(),
+                    ->label('Date Received'),
+                Tables\Columns\TextColumn::make('contractor.name')
+                    ->label('Mail Source')
+                    ->searchable()
+                    ->wrap(),
                 Tables\Columns\TextColumn::make('description')
                     ->label('File Description/Name')
                     ->searchable()

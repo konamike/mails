@@ -152,8 +152,11 @@ class AllletterResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('date_received')
                     ->label('Date Received')
-                    ->date()
-                    ->sortable(),
+                    ->date(),
+                Tables\Columns\TextColumn::make('contractor.name')
+                    ->label('Mail Source')
+                    ->searchable()
+                    ->wrap(),
                 Tables\Columns\TextColumn::make('description')
                     ->label('Description/Name')
                     ->searchable()
@@ -183,11 +186,11 @@ class AllletterResource extends Resource
                     ->date(),
                 Tables\Columns\TextColumn::make('sent_to')
                     ->label('Dispatched To'),
-                Tables\Columns\TextColumn::make('created_at')
+/*                Tables\Columns\TextColumn::make('created_at')
                     ->label('Date Created')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true),*/
             ])
             ->filters([
                 //

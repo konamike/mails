@@ -99,15 +99,15 @@ class FiledispatchResource extends Resource
     {
         return $table
             ->columns([
-
+                Tables\Columns\TextColumn::make('contractor.name')
+                    ->searchable()
+                    ->wrap()
+                    ->label('Mail Source'),
                 Tables\Columns\TextColumn::make('description')
-                    ->sortable()
+                    ->label('Description')
                     ->searchable()
                     ->wrap(),
-                Tables\Columns\TextColumn::make('contractor.name')
-                    ->wrap()
-                    ->label('Mail Initiator')
-                    ->sortable(),
+
                 Tables\Columns\IconColumn::make('treated')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('date_treated')
@@ -115,10 +115,6 @@ class FiledispatchResource extends Resource
                     ->label('Date Treated'),
                 Tables\Columns\IconColumn::make('dispatched')
                     ->boolean(),
-                // Tables\Columns\TextColumn::make('created_at')
-                //     ->dateTime()
-                //     ->sortable()
-                //     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //

@@ -87,13 +87,14 @@ class LetterdispatchResource extends Resource
     {
         return $table
             ->columns([
-
+                Tables\Columns\TextColumn::make('contractor.name')
+                    ->label('Mail Source')
+                    ->searchable()
+                    ->wrap(),
                 Tables\Columns\TextColumn::make('description')
                     ->searchable()
                     ->wrap(),
-                Tables\Columns\TextColumn::make('contractor.name')
-                    ->label('Mail Initiator')
-                    ->wrap(),
+
                 Tables\Columns\IconColumn::make('treated')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('date_treated')
