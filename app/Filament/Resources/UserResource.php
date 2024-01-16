@@ -154,7 +154,7 @@ class UserResource extends Resource
     {
         return [
             RolesRelationManager::class,
-            ActivitylogRelationManager::class,
+//            ActivitylogRelationManager::class,
         ];
     }
 

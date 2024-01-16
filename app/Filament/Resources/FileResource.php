@@ -28,6 +28,9 @@ use Illuminate\Support\Number;
 use phpDocumentor\Reflection\PseudoTypes\TraitString;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 use Rmsramos\Activitylog\RelationManagers\ActivitylogRelationManager;
+use Pelmered\FilamentMoneyField\Tables\Columns\MoneyColumn;
+use Pelmered\FilamentMoneyField\Infolists\Components\MoneyEntry;
+use Filament\Forms\Components;
 
 class FileResource extends Resource
 {
@@ -179,6 +182,10 @@ class FileResource extends Resource
                     ->searchable()
                     ->label('Description')
                     ->wrap(),
+/*                MoneyColumn::make('amount')
+//                    ->currency('USD')
+
+                    ->locale('en_USD'),*/
                 Tables\Columns\TextColumn::make('doc_author')
                     ->label('Document Author')
                     ->limit(35)
