@@ -1,0 +1,11 @@
+/*@import '../../../../vendor/filament/filament/resources/css/theme.css';*/
+@import '/vendor/filament/filament/resources/css/theme.css';
+@config './tailwind.config.js';
+
+.fi-simple-layout {
+    @apply bg-cyan-300/50;
+}
+
+.fi-simple-main {
+    @apply bg-emerald-100/50;
+}

@@ -63,7 +63,6 @@ class ContractorResource extends Resource
                         Forms\Components\TextInput::make('contact_phone')
                             ->label('Contact Person Phone')
                             ->minLength(11)
-                            ->visibleOn('view')
                             ->maxLength(11),
                     ])->columns(2),
             ]);

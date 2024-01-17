@@ -36,6 +36,7 @@ class AdminPanelProvider extends PanelProvider
             ->databaseNotifications()
             ->breadcrumbs(false)
             ->maxContentWidth('full')
+            ->viteTheme('resources/css/filament/admin/theme.css')
             ->colors([
                 'primary' => Color::Teal,
                 'danger' => Color::Rose,
@@ -88,7 +89,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->plugin(new \RickDBCN\FilamentEmail\FilamentEmail())
             ->plugin(FilamentProgressbarPlugin::make()->color('#29b000'))
-            ->plugins([
+        ->plugins([
                 ActivitylogPlugin::make()
                     ->navigationGroup('Activities Log')
                     ->navigationCountBadge(true),
