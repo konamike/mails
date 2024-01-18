@@ -200,7 +200,7 @@ class AllmemoResource extends Resource
                     ->label('Sent To')
                     ->default('Not Sent'),
                 Tables\Columns\TextColumn::make('sent_to')
-                    ->label('Dispatched To'),
+                    ->label('Sent To'),
 /*                Tables\Columns\TextColumn::make('created_at')
                     ->label('Date Created')
                     ->dateTime()

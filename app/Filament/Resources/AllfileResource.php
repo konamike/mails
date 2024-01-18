@@ -184,7 +184,7 @@ class AllfileResource extends Resource
                     ->date()
                     ->label('Date Dispatched'),
                 Tables\Columns\TextColumn::make('sent_to')
-                    ->label('Dispatched To'),
+                    ->label('Sent To'),
                 // Tables\Columns\TextColumn::make('created_at')
                 //     ->label('Date Created')
                 //     ->dateTime()

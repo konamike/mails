@@ -186,7 +186,7 @@ class AllletterResource extends Resource
                     ->label('Date Dispatched')
                     ->date(),
                 Tables\Columns\TextColumn::make('sent_to')
-                    ->label('Dispatched To'),
+                    ->label('Sent To'),
 /*                Tables\Columns\TextColumn::make('created_at')
                     ->label('Date Created')
                     ->dateTime()
