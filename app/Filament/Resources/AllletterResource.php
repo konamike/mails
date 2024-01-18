@@ -76,7 +76,8 @@ class AllletterResource extends Resource
                                 Forms\Components\TextInput::make('file_number')
                                     ->placeholder('No File Number'),
                                 Forms\Components\TextInput::make('amount')
-                                    ->numeric(),
+                                    ->currencyMask(thousandSeparator: ',',decimalSeparator: '.',precision: 2)->currencyMask()
+                                    ->prefix('NGN'),
                                 Forms\Components\Select::make('received_by')
                                     ->relationship('user', 'name')
                                     ->label('Received By'),
@@ -90,15 +91,15 @@ class AllletterResource extends Resource
                                     ->maxLength(65535)
                                     ->columnSpanFull(),
                             ])->columns(3),
-                        Tabs\Tab::make('Document Processing Info')
+                        Tabs\Tab::make('Processing Information')
                             ->icon('heroicon-m-presentation-chart-bar')
                             ->schema([
-                                Forms\Components\Toggle::make('treated')
+/*                                Forms\Components\Toggle::make('treated')
                                     ->label('Document Processed?')
                                     ->offIcon('heroicon-m-no-symbol')
                                     ->offColor('danger')
                                     ->onIcon('heroicon-m-check-badge')
-                                    ->inline(false),
+                                    ->inline(false),*/
                                 Forms\Components\DatePicker::make('date_treated')
                                     ->label('Date Processed'),
                                 Forms\Components\Select::make('treated_by')
@@ -107,15 +108,15 @@ class AllletterResource extends Resource
                                 Forms\Components\Textarea::make('treated_notes')
                                     ->label('Document Note')
                                     ->maxLength(65535)->columnSpanFull(),
-                            ])->columns(3),
-                        Tabs\Tab::make('Document Dispatch Info')
+                            ])->columns(2),
+                        Tabs\Tab::make('Dispatch Information')
                             ->icon('heroicon-m-paper-airplane')
                             ->schema([
-                                Forms\Components\Toggle::make('dispatched')
+/*                                Forms\Components\Toggle::make('dispatched')
                                     ->offIcon('heroicon-m-no-symbol')
                                     ->offColor('danger')
                                     ->onIcon('heroicon-m-check-badge')
-                                    ->inline(false),
+                                    ->inline(false),*/
                                 Forms\Components\TextInput::make('sent_from')
                                     ->maxLength(255),
                                 Forms\Components\TextInput::make('sent_to')

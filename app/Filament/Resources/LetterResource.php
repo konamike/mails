@@ -96,14 +96,20 @@ class LetterResource extends Resource
                 Fieldset::make()
                     ->schema([
                         Forms\Components\TextInput::make('amount')
-                            ->numeric(),
+                            ->numeric()->visibleOn('create'),
+                        Forms\Components\TextInput::make('amount')
+                            ->prefix('NGN')
+                            ->currencyMask(thousandSeparator: ',',decimalSeparator: '.',precision: 2)
+                            ->visibleOn(['edit', 'view']),
                         Forms\Components\TextInput::make('phone')
-                            ->label('Phone Number'),
+                            ->label('Phone Number')
+                            ->mask('999-9999-9999')
+                            ->placeholder('080-0000-0000'),
                         Forms\Components\TextInput::make('email')
                             ->label('Email'),
                     ])->columns(3),
 
-                Fieldset::make('DOCUMENT RETRIEVAL')
+                Fieldset::make()
                     ->schema([
                         Forms\Components\TextInput::make('hand_carried')
                             ->maxLength(255),
@@ -143,14 +149,6 @@ class LetterResource extends Resource
 
                 Tables\Columns\IconColumn::make('treated')
                     ->boolean(),
-                //                Tables\Columns\TextColumn::make('date_treated')
-                //                    ->date(),
-                //                Tables\Columns\IconColumn::make('dispatched')
-                //                    ->boolean(),
-                //                Tables\Columns\TextColumn::make('date_dispatched')
-                //                    ->date()
-                //                    ->sortable(),
-
                 Tables\Columns\TextColumn::make('created_at')
                     ->date(format: 'dS M. Y h:i A')
                     //                    ->sortable()

@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "ariaieboy/filament-currency": "^1.2",
         "doctrine/dbal": "^3.7",
         "dragon-code/support": "^6.11",
         "filament/filament": "3.0-stable",

@@ -137,7 +137,11 @@ class FileResource extends Resource
                             ->label('Document Sender')
                             ->maxLength(255),
                         Forms\Components\TextInput::make('amount')
-                            ->numeric(),
+                            ->numeric()->visibleOn('create'),
+                        Forms\Components\TextInput::make('amount')
+                            ->prefix('NGN')
+                            ->currencyMask(thousandSeparator: ',',decimalSeparator: '.',precision: 2)
+                            ->visibleOn(['edit', 'view']),
                         Forms\Components\TextInput::make('phone')
                             ->label('Phone Number')
                             ->mask('999-9999-9999')
@@ -150,7 +154,7 @@ class FileResource extends Resource
 
                     ])->columns(2),
 
-                Fieldset::make('DOCUMENT RETRIEVALS')
+                Fieldset::make()
                     ->schema([
                         Forms\Components\TextInput::make('hand_carried')
                             ->maxLength(255),

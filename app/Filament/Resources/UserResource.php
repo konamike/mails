@@ -66,43 +66,46 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
+                Forms\Components\Section::make()
+                    ->schema([
+                        Forms\Components\TextInput::make('name')
+                            ->required()
+                            ->maxLength(255),
 
-                TextInput::make('email')
-                    ->email()
-                    ->unique(ignoreRecord: true)
-                    ->required()
-                    ->maxLength(255),
-                TextInput::make('password')
-                    ->password()
-                    ->maxLength(255)
-                    ->dehydrateStateUsing(
-                        static fn (null|string $state): null|string =>
-                        filled($state) ? Hash::make($state) : null,
-                    )->required(
-                        static fn (Page $livewire): bool =>
-                        $livewire instanceof CreateUser,
-                    )->dehydrated(
-                        static fn (null|string $state): bool =>
-                        filled($state),
-                    )->label(
-                        static fn (Page $livewire): string => ($livewire instanceof EditUser) ? 'New Password' : 'Password'
-                    ),
+                        TextInput::make('email')
+                            ->email()
+                            ->unique(ignoreRecord: true)
+                            ->required()
+                            ->maxLength(255),
+                        TextInput::make('password')
+                            ->password()
+                            ->maxLength(255)
+                            ->dehydrateStateUsing(
+                                static fn (null|string $state): null|string =>
+                                filled($state) ? Hash::make($state) : null,
+                            )->required(
+                                static fn (Page $livewire): bool =>
+                                    $livewire instanceof CreateUser,
+                            )->dehydrated(
+                                static fn (null|string $state): bool =>
+                                filled($state),
+                            )->label(
+                                static fn (Page $livewire): string => ($livewire instanceof EditUser) ? 'New Password' : 'Password'
+                            ),
 
-                Select::make('roles')
-                    ->searchable()
-                    ->relationship(
-                        name: 'roles',
-                        titleAttribute: 'name',
-                        modifyQueryUsing: fn (Builder $query) => $query->where('name', '<>', 'super-admin'),
-                    )
-                    ->preload()
-                    ->required(),
-                Forms\Components\Toggle::make('is_admin')
-                    ->default(false)
-                    ->required(),
+                        Select::make('roles')
+                            ->searchable()
+                            ->relationship(
+                                name: 'roles',
+                                titleAttribute: 'name',
+                                modifyQueryUsing: fn (Builder $query) => $query->where('name', '<>', 'super-admin'),
+                            )
+                            ->preload()
+                            ->required(),
+                        Forms\Components\Toggle::make('is_admin')
+                            ->default(false)
+                            ->required(),
+                    ])->columns(2),
             ]);
     }
 
@@ -153,7 +156,7 @@ class UserResource extends Resource
     public static function getRelations(): array
     {
         return [
-            RolesRelationManager::class,
+//            RolesRelationManager::class,
 //            ActivitylogRelationManager::class,
         ];
     }

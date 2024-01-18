@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Nette\Schema\Schema;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 
 class CategoryResource extends Resource
@@ -29,19 +30,24 @@ class CategoryResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('document_type')
-                    ->options([
-                        'FILE'=> 'FILE',
-                        'LETTER' => 'LETTER',
-                        'MEMO' => 'MEMO',
-                    ])
-                    ->required()
-                    ->native(false),
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('remarks')
-                    ->maxLength(255),
+                Forms\Components\Section::make()
+                        ->schema([
+                            Forms\Components\Select::make('document_type')
+                                ->options([
+                                    'FILE'=> 'FILE',
+                                    'LETTER' => 'LETTER',
+                                    'MEMO' => 'MEMO',
+                                ])
+                                ->required()
+                                ->native(false),
+                            Forms\Components\TextInput::make('name')
+                                ->required()
+                                ->maxLength(255),
+                            Forms\Components\Textarea::make('remarks')
+                                ->columnSpanFull(),
+                        ])->columns(2),
+
+
             ]);
     }
 

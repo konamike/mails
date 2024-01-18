@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\HtmlString;
+use Money\Money;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 
 
@@ -97,7 +98,11 @@ class MemoResource extends Resource
                 Fieldset::make()
                     ->schema([
                         Forms\Components\TextInput::make('amount')
-                            ->numeric(),
+                            ->numeric()->visibleOn('create'),
+                        Forms\Components\TextInput::make('amount')
+                            ->prefix('NGN')
+                            ->currencyMask(thousandSeparator: ',',decimalSeparator: '.',precision: 2)
+                            ->visibleOn(['edit', 'view']),
                         Forms\Components\TextInput::make('phone')
                             ->label('Phone Number')
                             ->minLength(11)
