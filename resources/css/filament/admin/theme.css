@@ -9,3 +9,16 @@
 .fi-simple-main {
     @apply bg-emerald-100/50;
 }
+
+.fi-layout {
+    @apply bg-emerald-100/50;
+}
+
+.fi-ta-header-ctn {
+    @apply bg-cyan-300/30;
+}
+
+.fi-ta-ctn{
+    background-color: #f0f3f0;
+}
+

@@ -62,7 +62,7 @@ class FileResource extends Resource
         return $form
             ->schema([
 
-                Fieldset::make('PRIMARY INFORMATION')
+                Fieldset::make()
                     ->schema([
                         Forms\Components\Textarea::make('description')
                             ->required()
@@ -131,7 +131,7 @@ class FileResource extends Resource
 
                     ])->columns(3),
 
-                Fieldset::make('ADDITIONAL DETAILS')
+                Fieldset::make()
                     ->schema([
                         Forms\Components\TextInput::make('doc_sender')
                             ->label('Document Sender')
@@ -162,7 +162,7 @@ class FileResource extends Resource
 
                     ])->columns(2)->visibleOn(['edit', 'view']),
 
-                Fieldset::make('REMARKS')
+                Fieldset::make()
                     ->schema([
                         Forms\Components\Textarea::make('remarks')
                             ->maxLength(65535)

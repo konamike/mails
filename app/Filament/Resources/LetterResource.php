@@ -51,7 +51,7 @@ class LetterResource extends Resource
         return $form
             ->schema([
 
-                Fieldset::make('PRIMARY INFORMATION')
+                Fieldset::make()
                     ->schema([
                         Forms\Components\Textarea::make('description')
                             ->required()
@@ -93,7 +93,7 @@ class LetterResource extends Resource
 
                     ])->columns(3),
 
-                Fieldset::make('ADDITIONAL DETAILS')
+                Fieldset::make()
                     ->schema([
                         Forms\Components\TextInput::make('amount')
                             ->numeric(),
@@ -114,7 +114,7 @@ class LetterResource extends Resource
                             ->default(now()),
                     ])->columns(2)->visibleOn(['edit', 'view']),
 
-                Fieldset::make('REMARKS')
+                Fieldset::make()
                     ->schema([
                         Forms\Components\Textarea::make('remarks')
                             ->maxLength(65535)

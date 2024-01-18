@@ -51,7 +51,7 @@ class MemoResource extends Resource
         return $form
             ->schema([
 
-                Fieldset::make('PRIMARY INFORMATION')
+                Fieldset::make()
                     ->schema([
 
                         Forms\Components\Textarea::make('description')
@@ -94,7 +94,7 @@ class MemoResource extends Resource
                     ])->columns(3),
 
 
-                Fieldset::make('ADDITIONAL DETAILS')
+                Fieldset::make()
                     ->schema([
                         Forms\Components\TextInput::make('amount')
                             ->numeric(),
@@ -107,7 +107,7 @@ class MemoResource extends Resource
                     ])->columns(3),
 
 
-                Fieldset::make('DOCUMENT RETRIEVAL')
+                Fieldset::make()
                     ->schema([
                         Forms\Components\TextInput::make('hand_carried')
                             ->maxLength(255),
@@ -118,7 +118,7 @@ class MemoResource extends Resource
                             ->default(now()),
                     ])->columns(3)->visibleOn(['edit', 'view']),
 
-                Fieldset::make('REMARKS')
+                Fieldset::make()
                     ->schema([
                         Forms\Components\Textarea::make('remarks')
                             ->maxLength(65535)
