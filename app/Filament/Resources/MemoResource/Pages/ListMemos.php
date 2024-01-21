@@ -16,9 +16,9 @@ class ListMemos extends ListRecords
         return [
             Actions\CreateAction::make()
                 ->icon('heroicon-o-chevron-double-down')
-                ->color('warning')
+                ->color('primary')
                 ->iconPosition('after')
-                ->label('Create Memo'),
+                ->label('New Memo'),
         ];
     }
 

@@ -18,8 +18,9 @@ class ListFiles extends ListRecords
         return [
             Actions\CreateAction::make()
                 ->icon('heroicon-o-film')
-                ->color('warning')
-                ->label('Create New File'),
+                ->color('primary')
+                ->iconPosition('after')
+                ->label('New File'),
 
             // ExportAction::make()->exports([
             //     // Pass a string

@@ -12,8 +12,10 @@ use Filament\Tables;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use Illuminate\Contracts\Support\Htmlable;
 
 class ContractorResource extends Resource
 {
@@ -35,6 +37,7 @@ class ContractorResource extends Resource
     {
         return 'success';
     }
+
 
     public static function form(Form $form): Form
     {

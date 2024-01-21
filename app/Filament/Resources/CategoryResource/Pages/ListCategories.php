@@ -15,8 +15,9 @@ class ListCategories extends ListRecords
     {
         return [
             Actions\CreateAction::make()
-                ->label('Create Category')
-                ->color('warning')
+                ->label('New Category')
+                ->color('primary')
+                ->iconPosition('after')
                 ->icon('heroicon-o-circle-stack'),
         ];
     }

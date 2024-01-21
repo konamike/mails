@@ -135,6 +135,7 @@ class MemoResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->striped()
             ->columns([
                 Tables\Columns\TextColumn::make('date_received')
                     ->date()

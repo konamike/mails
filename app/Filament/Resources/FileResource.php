@@ -179,6 +179,8 @@ class FileResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->striped()
+            ->deferLoading()
             ->columns([
                 Tables\Columns\TextColumn::make('date_received')
                     ->date(),
@@ -186,10 +188,6 @@ class FileResource extends Resource
                     ->searchable()
                     ->label('Description')
                     ->wrap(),
-/*                MoneyColumn::make('amount')
-//                    ->currency('USD')
-
-                    ->locale('en_USD'),*/
                 Tables\Columns\TextColumn::make('doc_author')
                     ->label('Document Author')
                     ->limit(35)

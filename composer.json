@@ -16,6 +16,7 @@
         "filament/filament": "3.0-stable",
         "filament/notifications": "3.0-stable",
         "guzzlehttp/guzzle": "^7.2",
+        "kainiklas/filament-scout": "^0.1.0",
         "laravel/framework": "^10.10",
         "laravel/jetstream": "^4.1",
         "laravel/pulse": "^1.0@beta",

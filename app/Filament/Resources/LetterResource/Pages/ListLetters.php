@@ -16,8 +16,9 @@ class ListLetters extends ListRecords
         return [
             Actions\CreateAction::make()
                 ->icon('heroicon-o-envelope')
-                ->color('warning')
-                ->label('Create Letter'),
+                ->color('primary')
+                ->iconPosition('after')
+                ->label('New Letter'),
         ];
     }
 }

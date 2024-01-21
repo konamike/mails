@@ -25,6 +25,17 @@ class Contractor extends Model
         'deleted_at' => 'datetime',
     ];
 
+    protected function applySearchToTableQuery(Builder $query): Builder
+    {
+        $this->applyColumnSearchesToTableQuery($query);
+
+        if (filled($search = $this->getTableSearch())) {
+            $query->whereIn('id', Post::search($search)->keys());
+        }
+
+        return $query;
+    }
+
     public function file(): HasMany
     {
         return $this->hasMany(File::class);
