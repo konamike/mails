@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "algolia/algoliasearch-client-php": "^3.4",
         "ariaieboy/filament-currency": "^1.2",
         "doctrine/dbal": "^3.7",
         "dragon-code/support": "^6.11",
@@ -19,6 +20,7 @@
         "laravel/jetstream": "^4.1",
         "laravel/pulse": "^1.0@beta",
         "laravel/sanctum": "^3.3",
+        "laravel/scout": "^10.8",
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.0",
         "malzariey/filament-daterangepicker-filter": "^2.3",

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('file_number')->nullable();
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('contractor_id')->default(1);
-            $table->text('description');
+            $table->text('description')->fulltext();
             $table->decimal('amount',15, 2)->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();

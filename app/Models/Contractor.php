@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\File;
+use Laravel\Scout\Searchable;
 
 class Contractor extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Searchable;
     protected $fillable = [
         'name',
         'phone',
@@ -29,13 +30,13 @@ class Contractor extends Model
         return $this->hasMany(File::class);
     }
 
-    
+
     public function letter(): HasOne
     {
         return $this->hasOne(Letter::class);
     }
 
-    
+
     public function memo(): HasOne
     {
         return $this->hasOne(Memo::class);

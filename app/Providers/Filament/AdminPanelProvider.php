@@ -23,6 +23,7 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Rmsramos\Activitylog\ActivitylogPlugin;
 use Njxqlus\FilamentProgressbar\FilamentProgressbarPlugin;
 
+
 class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
@@ -89,7 +90,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->plugin(new \RickDBCN\FilamentEmail\FilamentEmail())
             ->plugin(FilamentProgressbarPlugin::make()->color('#29b000'))
-        ->plugins([
+            ->plugins([
                 ActivitylogPlugin::make()
                     ->navigationGroup('Activities Log')
                     ->navigationCountBadge(true),

@@ -11,11 +11,12 @@
 }
 
 .fi-layout {
-    @apply bg-emerald-100/50;
+    @apply bg-cyan-300/20;
+
 }
 
 .fi-ta-header-ctn {
-    @apply bg-cyan-300/30;
+    @apply bg-emerald-100/50;
 }
 
 .fi-ta-ctn{

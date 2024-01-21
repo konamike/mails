@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('doc_sender')->nullable();
             $table->string('file_number')->nullable();
             $table->decimal('amount',15, 2)->nullable();
-            $table->text('description');
+            $table->text('description')->fulltext();
             $table->string('hand_carried')->nullable();
             $table->string('retrieved_by')->nullable();
             $table->date('date_retrieved')->nullable();
