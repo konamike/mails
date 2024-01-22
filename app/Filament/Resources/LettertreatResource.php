@@ -28,6 +28,10 @@ class LettertreatResource extends Resource
         return static::getModel()::where('treated', false)->count();
     }
 
+    public static function getNavigationBadgeColor(): string|array|null
+    {
+        return 'success';
+    }
     public static function getEloquentQuery(): Builder
     {
         return static::getModel()::query()

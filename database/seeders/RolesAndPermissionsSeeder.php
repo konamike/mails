@@ -81,7 +81,7 @@ class RolesAndPermissionsSeeder extends Seeder
             $permission_read,
             $permission_update,
             $permission_delete,
-            $admin_update,
+            $admin_create,
         ]);
 
         $mdRole = Role::create(['name' => 'md'])->syncPermissions([
@@ -138,7 +138,7 @@ class RolesAndPermissionsSeeder extends Seeder
 
         User::create([
             'name' => 'cos',
-            'is_admin' => 0,
+            'is_admin' => 1,
             'email' => 'cos@admin.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
@@ -156,14 +156,24 @@ class RolesAndPermissionsSeeder extends Seeder
 
         User::create([
             'name' => 'engineer',
-            'is_admin' => 0,
-            'email' => 'engineerr@admin.com',
+            'is_admin' => 1,
+            'email' => 'engineer@admin.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
         ])->assignRole($engineerRole);
 
-        for ($i=1; $i < 10; $i++) {
+
+        User::create([
+            'name' => 'user',
+            'is_admin' => 0,
+            'email' => 'user@user.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+            'remember_token' => Str::random(10),
+        ])->assignRole($userRole);
+
+/*        for ($i=1; $i < 10; $i++) {
             User::create([
                 'name' => 'Test '.$i,
                 'is_admin' => 0,
@@ -172,6 +182,6 @@ class RolesAndPermissionsSeeder extends Seeder
                 'password' => Hash::make('password'), // password
                 'remember_token' => Str::random(10),
             ])->assignRole($userRole);
-        }
+        }*/
     }
 }

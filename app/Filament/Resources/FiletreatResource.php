@@ -17,7 +17,6 @@ use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 class FiletreatResource extends Resource
 {
     protected static ?string $model = Filetreat::class;
-
     protected static ?string $navigationIcon = 'heroicon-s-film';
     protected static ?string $navigationGroup = 'Documents In-Process';
     protected static ?string $navigationLabel = 'Files';
@@ -27,7 +26,10 @@ class FiletreatResource extends Resource
     {
         return static::getModel()::where('treated', false)->count();
     }
-
+    public static function getNavigationBadgeColor(): string|array|null
+    {
+        return 'info';
+    }
     public static function getEloquentQuery(): Builder
     {
         return static::getModel()::query()

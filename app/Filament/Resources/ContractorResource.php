@@ -20,9 +20,7 @@ use Illuminate\Contracts\Support\Htmlable;
 class ContractorResource extends Resource
 {
     protected static ?string $model = Contractor::class;
-
     protected static ?string $navigationIcon = 'heroicon-s-briefcase';
-
     protected static ?string $navigationGroup = 'General Management';
     protected static ?string $navigationLabel = 'Contractors';
 

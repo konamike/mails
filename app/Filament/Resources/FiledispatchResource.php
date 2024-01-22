@@ -18,12 +18,10 @@ use Illuminate\Auth\Access\Response;
 class FiledispatchResource extends Resource
 {
     protected static ?string $model = Filedispatch::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-film';
     protected static ?string $navigationGroup = 'Outgoing Documents';
     protected static ?string $navigationLabel = 'Files';
     protected static ?int $navigationSort = 1;
-
 
     public static function getNavigationBadge(): ?string
     {
@@ -107,7 +105,6 @@ class FiledispatchResource extends Resource
                     ->label('Description')
                     ->searchable()
                     ->wrap(),
-
                 Tables\Columns\IconColumn::make('treated')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('date_treated')
