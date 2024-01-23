@@ -52,7 +52,7 @@ class UserResource extends Resource
 
     public static function getNavigationBadgeColor(): string|array|null
     {
-        return 'success';
+        return 'info';
     }
 
     public static function getEloquentQuery(): Builder

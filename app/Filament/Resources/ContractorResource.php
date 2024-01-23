@@ -33,7 +33,7 @@ class ContractorResource extends Resource
 
     public static function getNavigationBadgeColor(): string|array|null
     {
-        return 'success';
+        return 'info';
     }
 
 

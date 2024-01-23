@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection ALL */
 
 namespace App\Filament\Resources;
 
@@ -29,7 +29,7 @@ class MemodispatchResource extends Resource
 
     public static function getNavigationBadgeColor(): string|array|null
     {
-        return 'success';
+        return 'info';
     }
 
     public static function getEloquentQuery(): Builder
