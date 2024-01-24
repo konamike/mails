@@ -29,8 +29,8 @@ class DocumentSentMail extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
+            from: 'konabiyovwimichael@gmail.com',
             subject: 'Your Document Has Been Sent.',
-
         );
     }
 
@@ -41,6 +41,7 @@ class DocumentSentMail extends Mailable implements ShouldQueue
     {
         return new Content(
             markdown: 'emails.documentsent',
+            with: ['message' => $this->message],
         );
     }
 

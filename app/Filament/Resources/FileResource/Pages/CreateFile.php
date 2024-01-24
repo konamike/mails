@@ -61,7 +61,6 @@ class CreateFile extends CreateRecord
 
 
         $name = Auth::user()->name;
-        $recipient = \auth()->user();
         $recipients = User::where('is_admin', '=', 1)->get();
         // $recipient = User::all();
         // $recipient = auth()->user()->is_admin()->toArray();
