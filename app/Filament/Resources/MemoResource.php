@@ -138,13 +138,11 @@ class MemoResource extends Resource
             ->striped()
             ->columns([
                 Tables\Columns\TextColumn::make('date_received')
-                    ->date()
-                    ->sortable(),
+                    ->date(),
                 Tables\Columns\TextColumn::make('description')
                     ->searchable()
                     ->wrap()
-                    ->label('Letter Description')
-                    ->sortable(),
+                    ->label('Letter Description'),
 
                 Tables\Columns\TextColumn::make('doc_author')
                     ->label('Document Author')
